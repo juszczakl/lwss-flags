@@ -1,5 +1,15 @@
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// -----------------------------------------
+// LWSS FLAG ACTIVITY
+// Participant Upload Page
+// -----------------------------------------
 
+// Connect to Supabase using the values in config.js
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+// Page elements
 const photoInput = document.getElementById("flagPhoto");
 const previewArea = document.getElementById("previewArea");
 const previewImage = document.getElementById("previewImage");
@@ -9,55 +19,94 @@ const statusMessage = document.getElementById("statusMessage");
 const nameInput = document.getElementById("name");
 
 let selectedFile = null;
+let previewURL = null;
 
-photoInput.addEventListener("change", () => {
-  const file = photoInput.files[0];
 
-  if (!file) return;
+// -----------------------------------------
+// PHOTO SELECTED
+// -----------------------------------------
+
+photoInput.addEventListener("change", function () {
+
+  const file = photoInput.files?.[0];
+
+  if (!file) {
+    return;
+  }
+
+  // Make sure an image was selected
+  if (!file.type.startsWith("image/")) {
+    showStatus("Please choose a photo of your flag.", true);
+    resetPhoto();
+    return;
+  }
 
   selectedFile = file;
 
-  const previewURL = URL.createObjectURL(file);
+  // Remove the previous preview URL if there was one
+  if (previewURL) {
+    URL.revokeObjectURL(previewURL);
+  }
+
+  previewURL = URL.createObjectURL(file);
+
   previewImage.src = previewURL;
 
   previewArea.hidden = false;
   retakeButton.hidden = false;
+  submitButton.hidden = false;
   submitButton.disabled = false;
 
-  statusMessage.textContent = "";
+  showStatus("");
 });
 
-retakeButton.addEventListener("click", () => {
-  photoInput.value = "";
-  selectedFile = null;
 
-  previewArea.hidden = true;
-  retakeButton.hidden = true;
-  submitButton.disabled = true;
+// -----------------------------------------
+// RETAKE / CHOOSE ANOTHER PHOTO
+// -----------------------------------------
 
-  statusMessage.textContent = "";
+retakeButton.addEventListener("click", function () {
+
+  resetPhoto();
 
   photoInput.click();
+
 });
 
-submitButton.addEventListener("click", async () => {
-  if (!selectedFile) return;
+
+// -----------------------------------------
+// SUBMIT FLAG
+// -----------------------------------------
+
+submitButton.addEventListener("click", async function () {
+
+  if (!selectedFile) {
+    showStatus("Please choose a photo first.", true);
+    return;
+  }
 
   submitButton.disabled = true;
   retakeButton.disabled = true;
+  photoInput.disabled = true;
 
-  statusMessage.textContent = "Submitting your flag...";
+  showStatus("Preparing your flag...");
 
   try {
+
+    // Resize and convert the photo before uploading
     const processedImage = await prepareImage(selectedFile);
 
-    // Simple Supabase-safe filename
+    showStatus("Uploading your flag...");
+
+    // Simple storage-safe filename
     const fileName = `flag-${Date.now()}.jpg`;
 
+    // Upload image to the public "flags" bucket
     const { error: uploadError } = await supabaseClient.storage
       .from("flags")
       .upload(fileName, processedImage, {
         contentType: "image/jpeg",
+        cacheControl: "3600",
         upsert: false
       });
 
@@ -65,21 +114,29 @@ submitButton.addEventListener("click", async () => {
       throw uploadError;
     }
 
+    showStatus("Finishing your submission...");
+
+    // Optional participant name
     const firstName = nameInput.value.trim();
 
+    // Save submission information to the database
     const { error: databaseError } = await supabaseClient
       .from("submissions")
-      .insert({
-        name: firstName || null,
-        image_path: fileName
-      });
+      .insert([
+        {
+          name: firstName || null,
+          image_path: fileName
+        }
+      ]);
 
     if (databaseError) {
       throw databaseError;
     }
 
-    statusMessage.textContent =
-      "Your flag was submitted! Watch for it in the stadium.";
+    // Success
+    showStatus(
+      "Your flag was submitted! Watch for it in the stadium."
+    );
 
     submitButton.hidden = true;
     retakeButton.hidden = true;
@@ -87,52 +144,74 @@ submitButton.addEventListener("click", async () => {
     nameInput.disabled = true;
 
   } catch (error) {
-    console.error("Flag submission error:", error);
 
-    statusMessage.textContent =
-      "We couldn't submit your flag. Please try again.";
+    console.error("LWSS flag submission error:", error);
+
+    showStatus(
+      "We couldn't submit your flag. Please try again.",
+      true
+    );
 
     submitButton.disabled = false;
     retakeButton.disabled = false;
+    photoInput.disabled = false;
   }
+
 });
 
+
+// -----------------------------------------
+// IMAGE PREPARATION
+// -----------------------------------------
+
 async function prepareImage(file) {
+
   const image = await loadImage(file);
 
   const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
+  const context = canvas.getContext("2d");
 
-  const targetWidth = 1200;
-  const targetHeight = 700;
+  // Temporary standard flag image size.
+  // Later we will replace this with the automatic
+  // worksheet-marker crop/straightening system.
+  const outputWidth = 1200;
+  const outputHeight = 700;
 
-  canvas.width = targetWidth;
-  canvas.height = targetHeight;
+  canvas.width = outputWidth;
+  canvas.height = outputHeight;
 
-  const sourceRatio = image.width / image.height;
-  const targetRatio = targetWidth / targetHeight;
+  const imageRatio = image.width / image.height;
+  const outputRatio = outputWidth / outputHeight;
 
-  let sourceWidth;
-  let sourceHeight;
-  let sourceX;
-  let sourceY;
+  let sourceX = 0;
+  let sourceY = 0;
+  let sourceWidth = image.width;
+  let sourceHeight = image.height;
 
-  if (sourceRatio > targetRatio) {
-    sourceHeight = image.height;
-    sourceWidth = sourceHeight * targetRatio;
+  // Center-crop while maintaining proportions
+  if (imageRatio > outputRatio) {
+
+    sourceWidth = image.height * outputRatio;
     sourceX = (image.width - sourceWidth) / 2;
-    sourceY = 0;
+
   } else {
-    sourceWidth = image.width;
-    sourceHeight = sourceWidth / targetRatio;
-    sourceX = 0;
+
+    sourceHeight = image.width / outputRatio;
     sourceY = (image.height - sourceHeight) / 2;
+
   }
 
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, targetWidth, targetHeight);
+  // White background
+  context.fillStyle = "#ffffff";
+  context.fillRect(
+    0,
+    0,
+    outputWidth,
+    outputHeight
+  );
 
-  ctx.drawImage(
+  // Draw resized image
+  context.drawImage(
     image,
     sourceX,
     sourceY,
@@ -140,40 +219,119 @@ async function prepareImage(file) {
     sourceHeight,
     0,
     0,
-    targetWidth,
-    targetHeight
+    outputWidth,
+    outputHeight
   );
 
-  return new Promise((resolve, reject) => {
+  // Convert canvas to JPEG
+  const blob = await canvasToBlob(canvas);
+
+  return blob;
+}
+
+
+// -----------------------------------------
+// LOAD IMAGE
+// -----------------------------------------
+
+function loadImage(file) {
+
+  return new Promise(function (resolve, reject) {
+
+    const image = new Image();
+    const imageURL = URL.createObjectURL(file);
+
+    image.onload = function () {
+
+      URL.revokeObjectURL(imageURL);
+
+      resolve(image);
+    };
+
+    image.onerror = function () {
+
+      URL.revokeObjectURL(imageURL);
+
+      reject(
+        new Error("The selected photo could not be read.")
+      );
+    };
+
+    image.src = imageURL;
+
+  });
+
+}
+
+
+// -----------------------------------------
+// CANVAS TO JPEG
+// -----------------------------------------
+
+function canvasToBlob(canvas) {
+
+  return new Promise(function (resolve, reject) {
+
     canvas.toBlob(
-      blob => {
+      function (blob) {
+
         if (blob) {
           resolve(blob);
         } else {
-          reject(new Error("Could not process image."));
+          reject(
+            new Error("The photo could not be processed.")
+          );
         }
+
       },
       "image/jpeg",
       0.9
     );
+
   });
+
 }
 
-function loadImage(file) {
-  return new Promise((resolve, reject) => {
-    const image = new Image();
-    const url = URL.createObjectURL(file);
 
-    image.onload = () => {
-      URL.revokeObjectURL(url);
-      resolve(image);
-    };
+// -----------------------------------------
+// RESET PHOTO
+// -----------------------------------------
 
-    image.onerror = () => {
-      URL.revokeObjectURL(url);
-      reject(new Error("Could not read image."));
-    };
+function resetPhoto() {
 
-    image.src = url;
-  });
+  selectedFile = null;
+
+  photoInput.value = "";
+
+  if (previewURL) {
+    URL.revokeObjectURL(previewURL);
+    previewURL = null;
+  }
+
+  previewImage.removeAttribute("src");
+
+  previewArea.hidden = true;
+  retakeButton.hidden = true;
+
+  submitButton.hidden = false;
+  submitButton.disabled = true;
+
+  showStatus("");
+}
+
+
+// -----------------------------------------
+// STATUS MESSAGE
+// -----------------------------------------
+
+function showStatus(message, isError = false) {
+
+  statusMessage.textContent = message;
+
+  if (isError) {
+    statusMessage.setAttribute("data-error", "true");
+  } else {
+    statusMessage.removeAttribute("data-error");
+  }
+
 }
