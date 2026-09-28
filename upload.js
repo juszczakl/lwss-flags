@@ -51,8 +51,8 @@ submitButton.addEventListener("click", async () => {
   try {
     const processedImage = await prepareImage(selectedFile);
 
-    const fileName =
-      `${Date.now()}-${crypto.randomUUID()}.jpg`;
+    // Simple Supabase-safe filename
+    const fileName = `flag-${Date.now()}.jpg`;
 
     const { error: uploadError } = await supabaseClient.storage
       .from("flags")
@@ -87,7 +87,7 @@ submitButton.addEventListener("click", async () => {
     nameInput.disabled = true;
 
   } catch (error) {
-    console.error(error);
+    console.error("Flag submission error:", error);
 
     statusMessage.textContent =
       "We couldn't submit your flag. Please try again.";
