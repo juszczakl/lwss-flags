@@ -7,200 +7,196 @@
 <title>LWSS Flag Activity</title>
 
 <style>
-
-* {
-  box-sizing: border-box;
-}
+* { box-sizing:border-box; }
 
 body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #eef3f6;
-  color: #17344d;
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#eef3f6;
+  color:#17344d;
 }
 
 .page {
-  width: min(620px, 100%);
-  margin: 0 auto;
-  padding: 22px 16px 45px;
+  width:min(620px,100%);
+  margin:0 auto;
+  padding:22px 16px 45px;
 }
 
 .brand {
-  text-align: center;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: #a37b25;
-  margin-bottom: 8px;
+  text-align:center;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:2px;
+  color:#a37b25;
+  margin-bottom:8px;
 }
 
 .card {
-  background: white;
-  border-radius: 20px;
-  padding: 24px 20px;
-  box-shadow: 0 8px 30px rgba(20,50,70,.12);
+  background:white;
+  border-radius:20px;
+  padding:24px 20px;
+  box-shadow:0 8px 30px rgba(20,50,70,.12);
 }
 
 h1 {
-  margin: 0;
-  text-align: center;
-  font-size: 30px;
-  line-height: 1.08;
-  color: #173b58;
+  margin:0;
+  text-align:center;
+  font-size:30px;
+  line-height:1.08;
+  color:#173b58;
 }
 
 .prompt {
-  margin: 13px auto 22px;
-  text-align: center;
-  line-height: 1.5;
-  color: #40596b;
-  max-width: 500px;
+  margin:13px auto 22px;
+  text-align:center;
+  line-height:1.5;
+  color:#40596b;
+  max-width:500px;
 }
 
 .instructions {
-  padding: 14px;
-  margin-bottom: 20px;
-  background: #f5f8fa;
-  border-radius: 12px;
-  line-height: 1.45;
-  font-size: 14px;
+  padding:14px;
+  margin-bottom:20px;
+  background:#f5f8fa;
+  border-radius:12px;
+  line-height:1.45;
+  font-size:14px;
 }
 
 label {
-  display: block;
-  margin: 17px 0 7px;
-  font-weight: 700;
+  display:block;
+  margin:17px 0 7px;
+  font-weight:700;
 }
 
 input[type="text"] {
-  width: 100%;
-  border: 1px solid #cbd6dc;
-  border-radius: 10px;
-  padding: 13px;
-  font-size: 16px;
+  width:100%;
+  border:1px solid #cbd6dc;
+  border-radius:10px;
+  padding:13px;
+  font-size:16px;
 }
 
 .file-box {
-  position: relative;
-  margin-top: 6px;
+  position:relative;
+  margin-top:6px;
 }
 
 input[type="file"] {
-  position: absolute;
-  opacity: 0;
-  width: 1px;
-  height: 1px;
+  position:absolute;
+  opacity:0;
+  width:1px;
+  height:1px;
 }
 
 .file-button {
-  display: block;
-  width: 100%;
-  padding: 15px;
-  border-radius: 10px;
-  background: #173b58;
-  color: white;
-  text-align: center;
-  font-weight: 800;
-  cursor: pointer;
+  display:block;
+  width:100%;
+  padding:15px;
+  border-radius:10px;
+  background:#173b58;
+  color:white;
+  text-align:center;
+  font-weight:800;
+  cursor:pointer;
 }
 
 .processing {
-  display: none;
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 10px;
-  background: #eef4f7;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 700;
+  display:none;
+  margin-top:15px;
+  padding:12px;
+  border-radius:10px;
+  background:#eef4f7;
+  text-align:center;
+  font-size:14px;
+  font-weight:700;
 }
 
 .preview-section {
-  display: none;
-  margin-top: 22px;
+  display:none;
+  margin-top:22px;
 }
 
 .preview-title {
-  font-weight: 800;
-  margin-bottom: 8px;
+  font-weight:800;
+  margin-bottom:8px;
 }
 
 .preview-note {
-  margin-bottom: 10px;
-  font-size: 13px;
-  line-height: 1.4;
-  color: #617482;
+  margin-bottom:10px;
+  font-size:13px;
+  line-height:1.4;
+  color:#617482;
 }
 
 .preview-frame {
-  width: 100%;
-  aspect-ratio: 12 / 7;
-  background: #dce5ea;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 3px 12px rgba(0,0,0,.16);
+  width:100%;
+  aspect-ratio:12/7;
+  background:#dce5ea;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 3px 12px rgba(0,0,0,.16);
 }
 
 .preview-frame img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 button {
-  width: 100%;
-  margin-top: 20px;
-  border: 0;
-  border-radius: 11px;
-  padding: 15px;
-  font-size: 16px;
-  font-weight: 800;
-  cursor: pointer;
+  width:100%;
+  margin-top:20px;
+  border:0;
+  border-radius:11px;
+  padding:15px;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
 }
 
 .submit-button {
-  display: none;
-  background: #d3aa4d;
-  color: #17344d;
+  display:none;
+  background:#d3aa4d;
+  color:#17344d;
 }
 
 .submit-button:disabled {
-  opacity: .55;
-  cursor: default;
+  opacity:.55;
+  cursor:default;
 }
 
 .retry-button {
-  display: none;
-  margin-top: 10px;
-  background: #edf1f3;
-  color: #17344d;
+  display:none;
+  margin-top:10px;
+  background:#edf1f3;
+  color:#17344d;
 }
 
 .message {
-  display: none;
-  margin-top: 18px;
-  padding: 14px;
-  border-radius: 11px;
-  text-align: center;
-  line-height: 1.4;
+  display:none;
+  margin-top:18px;
+  padding:14px;
+  border-radius:11px;
+  text-align:center;
+  line-height:1.4;
 }
 
 .success {
-  background: #e7f5ec;
-  color: #235c38;
+  background:#e7f5ec;
+  color:#235c38;
 }
 
 .error {
-  background: #fdecec;
-  color: #8a3030;
+  background:#fdecec;
+  color:#8a3030;
 }
 
 canvas {
-  display: none;
+  display:none;
 }
-
 </style>
 </head>
 
@@ -208,125 +204,116 @@ canvas {
 
 <div class="page">
 
-  <div class="brand">
-    LWSS FLAG ACTIVITY
-  </div>
+<div class="brand">
+LWSS FLAG ACTIVITY
+</div>
 
-  <div class="card">
+<div class="card">
 
-    <h1>
-      What will you contribute?
-    </h1>
+<h1>
+What will you contribute?
+</h1>
 
-    <div class="prompt">
-      What will you contribute to help LWSS reach its 60% proficiency goal?
-    </div>
+<div class="prompt">
+What will you contribute to help LWSS reach its 60% proficiency goal?
+</div>
 
-    <div class="instructions">
-      Finished decorating your flag? Take a photo of the entire flag with all four corner markers visible.
-    </div>
+<div class="instructions">
+Finished decorating your flag? Take a photo of the entire flag with all four corner markers visible.
+</div>
 
-    <label for="name">
-      First name (optional)
-    </label>
+<label for="name">
+First name (optional)
+</label>
 
-    <input
-      id="name"
-      type="text"
-      maxlength="40"
-      placeholder="First name"
-    >
+<input
+id="name"
+type="text"
+maxlength="40"
+placeholder="First name"
+>
 
-    <label>
-      Photograph your flag
-    </label>
+<label>
+Photograph your flag
+</label>
 
-    <div class="file-box">
+<div class="file-box">
 
-      <input
-        id="photoInput"
-        type="file"
-        accept="image/*"
-        capture="environment"
-      >
+<input
+id="photoInput"
+type="file"
+accept="image/*"
+capture="environment"
+>
 
-      <label
-        for="photoInput"
-        class="file-button"
-      >
-        Take or Choose Photo
-      </label>
+<label
+for="photoInput"
+class="file-button">
+Take or Choose Photo
+</label>
 
-    </div>
+</div>
 
-    <div
-      id="processing"
-      class="processing"
-    >
-      Preparing your flag...
-    </div>
+<div
+id="processing"
+class="processing">
+Preparing your flag...
+</div>
 
-    <div
-      id="previewSection"
-      class="preview-section"
-    >
+<div
+id="previewSection"
+class="preview-section">
 
-      <div class="preview-title">
-        Preview
-      </div>
+<div class="preview-title">
+Preview
+</div>
 
-      <div class="preview-note">
-        This is how your artwork will appear in the stadium.
-      </div>
+<div class="preview-note">
+This is how your artwork will appear in the stadium.
+</div>
 
-      <div class="preview-frame">
+<div class="preview-frame">
 
-        <img
-          id="previewImage"
-          alt="Processed flag preview"
-        >
+<img
+id="previewImage"
+alt="Processed flag preview">
 
-      </div>
+</div>
 
-    </div>
+</div>
 
-    <button
-      id="submitButton"
-      class="submit-button"
-      type="button"
-    >
-      Submit My Flag
-    </button>
+<button
+id="submitButton"
+class="submit-button"
+type="button">
+Submit My Flag
+</button>
 
-    <button
-      id="retryButton"
-      class="retry-button"
-      type="button"
-    >
-      Choose a Different Photo
-    </button>
+<button
+id="retryButton"
+class="retry-button"
+type="button">
+Choose a Different Photo
+</button>
 
-    <div
-      id="successMessage"
-      class="message success"
-    >
-      Your flag was submitted! Watch for it in the stadium.
-    </div>
+<div
+id="successMessage"
+class="message success">
+Your flag was submitted! Watch for it in the stadium.
+</div>
 
-    <div
-      id="errorMessage"
-      class="message error"
-    ></div>
+<div
+id="errorMessage"
+class="message error">
+</div>
 
-  </div>
-
+</div>
 </div>
 
 <canvas id="workCanvas"></canvas>
 <canvas id="outputCanvas"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script async src="https://docs.opencv.org/4.x/opencv.js"></script>
 
 <script>
@@ -336,16 +323,16 @@ canvas {
 ========================================= */
 
 const SUPABASE_URL =
-  "https://oooanvnjvuwzsqocwzjs.supabase.co";
+"https://oooanvnjvuwzsqocwzjs.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_4lDV3RGlIGFgNVHiTUvhhg_Gk0UFP-8";
+"sb_publishable_4lDV3RGlIGFgNVHiTUvhhg_Gk0UFP-8";
 
 const db =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 
 /* =========================================
@@ -353,37 +340,37 @@ const db =
 ========================================= */
 
 const photoInput =
-  document.getElementById("photoInput");
+document.getElementById("photoInput");
 
 const nameInput =
-  document.getElementById("name");
+document.getElementById("name");
 
 const processing =
-  document.getElementById("processing");
+document.getElementById("processing");
 
 const previewSection =
-  document.getElementById("previewSection");
+document.getElementById("previewSection");
 
 const previewImage =
-  document.getElementById("previewImage");
+document.getElementById("previewImage");
 
 const submitButton =
-  document.getElementById("submitButton");
+document.getElementById("submitButton");
 
 const retryButton =
-  document.getElementById("retryButton");
+document.getElementById("retryButton");
 
 const successMessage =
-  document.getElementById("successMessage");
+document.getElementById("successMessage");
 
 const errorMessage =
-  document.getElementById("errorMessage");
+document.getElementById("errorMessage");
 
 const workCanvas =
-  document.getElementById("workCanvas");
+document.getElementById("workCanvas");
 
 const outputCanvas =
-  document.getElementById("outputCanvas");
+document.getElementById("outputCanvas");
 
 
 /* =========================================
@@ -396,29 +383,59 @@ let cvReady = false;
 
 
 /* =========================================
-   WAIT FOR OPENCV
+   OPENCV
 ========================================= */
 
 function waitForOpenCV() {
 
-  if (
-    typeof cv !== "undefined" &&
-    cv.Mat
-  ) {
+if (
+typeof cv !== "undefined" &&
+cv.Mat
+) {
 
-    cvReady = true;
+cvReady = true;
+return;
 
-    return;
+}
 
-  }
+setTimeout(
+waitForOpenCV,
+250
+);
 
-  setTimeout(
-    waitForOpenCV,
-    250
-  );
 }
 
 waitForOpenCV();
+
+
+/* =========================================
+   CURRENT ACTIVITY
+========================================= */
+
+async function getCurrentActivityId() {
+
+const result =
+await db
+.from("activity_state")
+.select("current_activity_id")
+.eq("id",1)
+.single();
+
+
+if (result.error) {
+
+console.error(result.error);
+
+throw new Error(
+"Unable to identify the current activity."
+);
+
+}
+
+
+return result.data.current_activity_id;
+
+}
 
 
 /* =========================================
@@ -426,70 +443,72 @@ waitForOpenCV();
 ========================================= */
 
 photoInput.addEventListener(
-  "change",
-  async function() {
+"change",
+async function() {
 
-    const file =
-      photoInput.files[0];
+const file =
+photoInput.files[0];
 
-    if (!file) {
-      return;
-    }
+if (!file) {
+return;
+}
 
-    resetMessages();
+resetMessages();
 
-    previewSection.style.display =
-      "none";
+previewSection.style.display =
+"none";
 
-    submitButton.style.display =
-      "none";
+submitButton.style.display =
+"none";
 
-    retryButton.style.display =
-      "none";
+retryButton.style.display =
+"none";
 
-    processing.style.display =
-      "block";
+processing.style.display =
+"block";
 
-    processedBlob =
-      null;
+processedBlob =
+null;
 
-    try {
 
-      const image =
-        await loadImage(file);
+try {
 
-      await processPhoto(image);
+const image =
+await loadImage(file);
 
-      processing.style.display =
-        "none";
+await processPhoto(image);
 
-      previewSection.style.display =
-        "block";
+processing.style.display =
+"none";
 
-      submitButton.style.display =
-        "block";
+previewSection.style.display =
+"block";
 
-      retryButton.style.display =
-        "block";
+submitButton.style.display =
+"block";
 
-    }
+retryButton.style.display =
+"block";
 
-    catch (error) {
+}
 
-      console.error(error);
+catch (error) {
 
-      processing.style.display =
-        "none";
+console.error(error);
 
-      showError(
-        "We couldn't prepare that photo. Please take another picture with the entire flag sheet visible."
-      );
+processing.style.display =
+"none";
 
-      retryButton.style.display =
-        "block";
-    }
+showError(
+"We couldn't prepare that photo. Please take another picture with the entire flag sheet visible."
+);
 
-  }
+retryButton.style.display =
+"block";
+
+}
+
+}
 );
 
 
@@ -499,39 +518,43 @@ photoInput.addEventListener(
 
 function loadImage(file) {
 
-  return new Promise(
-    function(resolve,reject) {
+return new Promise(
+function(resolve,reject) {
 
-      const image =
-        new Image();
+const image =
+new Image();
 
-      const url =
-        URL.createObjectURL(file);
+const url =
+URL.createObjectURL(file);
 
-      image.onload =
-        function() {
+image.onload =
+function() {
 
-          URL.revokeObjectURL(url);
+URL.revokeObjectURL(url);
 
-          resolve(image);
-        };
+resolve(image);
 
-      image.onerror =
-        function() {
+};
 
-          URL.revokeObjectURL(url);
+image.onerror =
+function() {
 
-          reject(
-            new Error(
-              "Unable to read image."
-            )
-          );
-        };
+URL.revokeObjectURL(url);
 
-      image.src =
-        url;
-    }
-  );
+reject(
+new Error(
+"Unable to read image."
+)
+);
+
+};
+
+image.src =
+url;
+
+}
+);
+
 }
 
 
@@ -541,631 +564,552 @@ function loadImage(file) {
 
 async function processPhoto(image) {
 
-  /*
-    First place the phone photo on a
-    manageable working canvas.
+const MAX_SIDE =
+1800;
 
-    This keeps processing fast even if
-    the phone takes a very large photo.
-  */
+let width =
+image.naturalWidth;
 
-  const MAX_SIDE =
-    1800;
+let height =
+image.naturalHeight;
 
-  let width =
-    image.naturalWidth;
+const scale =
+Math.min(
+1,
+MAX_SIDE /
+Math.max(width,height)
+);
 
-  let height =
-    image.naturalHeight;
+width =
+Math.round(
+width * scale
+);
 
-  const scale =
-    Math.min(
-      1,
-      MAX_SIDE /
-      Math.max(width,height)
-    );
+height =
+Math.round(
+height * scale
+);
 
-  width =
-    Math.round(
-      width * scale
-    );
+workCanvas.width =
+width;
 
-  height =
-    Math.round(
-      height * scale
-    );
+workCanvas.height =
+height;
 
-  workCanvas.width =
-    width;
+const ctx =
+workCanvas.getContext("2d");
 
-  workCanvas.height =
-    height;
-
-  const ctx =
-    workCanvas.getContext(
-      "2d"
-    );
-
-  ctx.drawImage(
-    image,
-    0,
-    0,
-    width,
-    height
-  );
+ctx.drawImage(
+image,
+0,
+0,
+width,
+height
+);
 
 
-  /*
-    If OpenCV is available, attempt
-    automatic rectangular artwork
-    detection and perspective correction.
+if (cvReady) {
 
-    If detection is not confident,
-    automatically fall back to a clean
-    center crop instead of failing.
-  */
+try {
 
-  if (cvReady) {
+const detected =
+detectAndStraightenFlag();
 
-    try {
+if (detected) {
 
-      const detected =
-        detectAndStraightenFlag();
+await createBlobFromOutput();
 
-      if (detected) {
+return;
 
-        await createBlobFromOutput();
+}
 
-        return;
-      }
+}
 
-    }
+catch (error) {
 
-    catch (error) {
+console.warn(
+"Automatic detection fallback:",
+error
+);
 
-      console.warn(
-        "Automatic detection fallback:",
-        error
-      );
-    }
-  }
+}
+
+}
 
 
-  /*
-    Fallback keeps the activity usable
-    even if OpenCV hasn't loaded or a
-    particular photo cannot be detected.
-  */
+centerCropFlag();
 
-  centerCropFlag();
-  await createBlobFromOutput();
+await createBlobFromOutput();
+
 }
 
 
 /* =========================================
-   DETECT RECTANGLE + PERSPECTIVE CORRECT
+   DETECT + STRAIGHTEN
 ========================================= */
 
 function detectAndStraightenFlag() {
 
-  const src =
-    cv.imread(
-      workCanvas
-    );
+const src =
+cv.imread(workCanvas);
+
+const gray =
+new cv.Mat();
 
-  const gray =
-    new cv.Mat();
+const blurred =
+new cv.Mat();
 
-  const blurred =
-    new cv.Mat();
-
-  const edges =
-    new cv.Mat();
-
-  const contours =
-    new cv.MatVector();
+const edges =
+new cv.Mat();
 
-  const hierarchy =
-    new cv.Mat();
+const contours =
+new cv.MatVector();
 
+const hierarchy =
+new cv.Mat();
 
-  try {
-
-    cv.cvtColor(
-      src,
-      gray,
-      cv.COLOR_RGBA2GRAY
-    );
 
-    cv.GaussianBlur(
-      gray,
-      blurred,
-      new cv.Size(5,5),
-      0,
-      0,
-      cv.BORDER_DEFAULT
-    );
-
-    cv.Canny(
-      blurred,
-      edges,
-      45,
-      130
-    );
-
-
-    /*
-      Join nearby line segments.
-      This helps with printed borders
-      and the four registration corners.
-    */
-
-    const kernel =
-      cv.Mat.ones(
-        5,
-        5,
-        cv.CV_8U
-      );
-
-    cv.dilate(
-      edges,
-      edges,
-      kernel
-    );
-
-    kernel.delete();
-
-
-    cv.findContours(
-      edges,
-      contours,
-      hierarchy,
-      cv.RETR_LIST,
-      cv.CHAIN_APPROX_SIMPLE
-    );
-
-
-    const imageArea =
-      src.cols *
-      src.rows;
-
-    let bestPoints =
-      null;
-
-    let bestArea =
-      0;
-
-
-    for (
-      let i = 0;
-      i < contours.size();
-      i++
-    ) {
-
-      const contour =
-        contours.get(i);
-
-      const perimeter =
-        cv.arcLength(
-          contour,
-          true
-        );
-
-      const approx =
-        new cv.Mat();
-
-      cv.approxPolyDP(
-        contour,
-        approx,
-        0.025 * perimeter,
-        true
-      );
-
-
-      if (
-        approx.rows === 4
-      ) {
-
-        const area =
-          Math.abs(
-            cv.contourArea(
-              approx
-            )
-          );
-
-        /*
-          Ignore tiny objects.
-
-          Also ignore nearly the entire
-          photograph because that is
-          commonly the edge of the photo
-          itself rather than the flag.
-        */
-
-        if (
-          area >
-          imageArea * .12 &&
-          area <
-          imageArea * .92 &&
-          area >
-          bestArea
-        ) {
+try {
 
-          const points =
-            [];
-
-          for (
-            let p = 0;
-            p < 4;
-            p++
-          ) {
+cv.cvtColor(
+src,
+gray,
+cv.COLOR_RGBA2GRAY
+);
 
-            points.push({
-              x:
-                approx.intPtr(p,0)[0],
+cv.GaussianBlur(
+gray,
+blurred,
+new cv.Size(5,5),
+0,
+0,
+cv.BORDER_DEFAULT
+);
 
-              y:
-                approx.intPtr(p,0)[1]
-            });
-          }
+cv.Canny(
+blurred,
+edges,
+45,
+130
+);
 
+const kernel =
+cv.Mat.ones(
+5,
+5,
+cv.CV_8U
+);
 
-          const ordered =
-            orderPoints(points);
+cv.dilate(
+edges,
+edges,
+kernel
+);
 
+kernel.delete();
 
-          const topWidth =
-            distance(
-              ordered.tl,
-              ordered.tr
-            );
 
-          const bottomWidth =
-            distance(
-              ordered.bl,
-              ordered.br
-            );
+cv.findContours(
+edges,
+contours,
+hierarchy,
+cv.RETR_LIST,
+cv.CHAIN_APPROX_SIMPLE
+);
 
-          const leftHeight =
-            distance(
-              ordered.tl,
-              ordered.bl
-            );
 
-          const rightHeight =
-            distance(
-              ordered.tr,
-              ordered.br
-            );
+const imageArea =
+src.cols * src.rows;
 
+let bestPoints =
+null;
 
-          const averageWidth =
-            (
-              topWidth +
-              bottomWidth
-            ) / 2;
+let bestArea =
+0;
 
-          const averageHeight =
-            (
-              leftHeight +
-              rightHeight
-            ) / 2;
 
+for (
+let i=0;
+i<contours.size();
+i++
+) {
 
-          const ratio =
-            averageWidth /
-            averageHeight;
+const contour =
+contours.get(i);
 
+const perimeter =
+cv.arcLength(
+contour,
+true
+);
 
-          /*
-            Our flag artwork is landscape.
-            This rejects square objects,
-            phone screens, etc.
-          */
+const approx =
+new cv.Mat();
 
-          if (
-            ratio > 1.15 &&
-            ratio < 2.5
-          ) {
+cv.approxPolyDP(
+contour,
+approx,
+0.025 * perimeter,
+true
+);
 
-            bestArea =
-              area;
 
-            bestPoints =
-              ordered;
-          }
-        }
+if (approx.rows === 4) {
 
-      }
+const area =
+Math.abs(
+cv.contourArea(approx)
+);
 
-      approx.delete();
-      contour.delete();
-    }
 
+if (
+area > imageArea * .12 &&
+area < imageArea * .92 &&
+area > bestArea
+) {
 
-    if (!bestPoints) {
+const points = [];
 
-      return false;
-    }
+for (
+let p=0;
+p<4;
+p++
+) {
 
+points.push({
 
-    /*
-      Correct the perspective into the
-      same 1200 x 700 format used by
-      the stadium.
-    */
+x:
+approx.intPtr(p,0)[0],
 
-    const OUTPUT_W =
-      1200;
+y:
+approx.intPtr(p,0)[1]
 
-    const OUTPUT_H =
-      700;
+});
 
+}
 
-    const sourcePoints =
-      cv.matFromArray(
-        4,
-        1,
-        cv.CV_32FC2,
-        [
 
-          bestPoints.tl.x,
-          bestPoints.tl.y,
+const ordered =
+orderPoints(points);
 
-          bestPoints.tr.x,
-          bestPoints.tr.y,
+const topWidth =
+distance(
+ordered.tl,
+ordered.tr
+);
 
-          bestPoints.br.x,
-          bestPoints.br.y,
+const bottomWidth =
+distance(
+ordered.bl,
+ordered.br
+);
 
-          bestPoints.bl.x,
-          bestPoints.bl.y
+const leftHeight =
+distance(
+ordered.tl,
+ordered.bl
+);
 
-        ]
-      );
+const rightHeight =
+distance(
+ordered.tr,
+ordered.br
+);
 
+const averageWidth =
+(topWidth + bottomWidth) / 2;
 
-    const destinationPoints =
-      cv.matFromArray(
-        4,
-        1,
-        cv.CV_32FC2,
-        [
+const averageHeight =
+(leftHeight + rightHeight) / 2;
 
-          0,
-          0,
+const ratio =
+averageWidth / averageHeight;
 
-          OUTPUT_W,
-          0,
 
-          OUTPUT_W,
-          OUTPUT_H,
+if (
+ratio > 1.15 &&
+ratio < 2.5
+) {
 
-          0,
-          OUTPUT_H
+bestArea =
+area;
 
-        ]
-      );
+bestPoints =
+ordered;
 
+}
 
-    const matrix =
-      cv.getPerspectiveTransform(
-        sourcePoints,
-        destinationPoints
-      );
+}
 
+}
 
-    const corrected =
-      new cv.Mat();
+approx.delete();
+contour.delete();
 
+}
 
-    cv.warpPerspective(
-      src,
-      corrected,
-      matrix,
-      new cv.Size(
-        OUTPUT_W,
-        OUTPUT_H
-      ),
-      cv.INTER_LINEAR,
-      cv.BORDER_REPLICATE
-    );
 
+if (!bestPoints) {
 
-    /*
-      Trim a small amount around the edge
-      so printed registration marks and
-      border lines don't become part of
-      the final participant flag.
-    */
+return false;
 
-    const trimX =
-      Math.round(
-        OUTPUT_W * .035
-      );
+}
 
-    const trimY =
-      Math.round(
-        OUTPUT_H * .045
-      );
 
+const OUTPUT_W =
+1200;
 
-    const trimmedRect =
-      new cv.Rect(
-        trimX,
-        trimY,
-        OUTPUT_W -
-          trimX * 2,
-        OUTPUT_H -
-          trimY * 2
-      );
+const OUTPUT_H =
+700;
 
 
-    const trimmed =
-      corrected.roi(
-        trimmedRect
-      );
+const sourcePoints =
+cv.matFromArray(
+4,
+1,
+cv.CV_32FC2,
+[
 
+bestPoints.tl.x,
+bestPoints.tl.y,
 
-    const finalMat =
-      new cv.Mat();
+bestPoints.tr.x,
+bestPoints.tr.y,
 
+bestPoints.br.x,
+bestPoints.br.y,
 
-    cv.resize(
-      trimmed,
-      finalMat,
-      new cv.Size(
-        OUTPUT_W,
-        OUTPUT_H
-      ),
-      0,
-      0,
-      cv.INTER_AREA
-    );
+bestPoints.bl.x,
+bestPoints.bl.y
 
+]
+);
 
-    outputCanvas.width =
-      OUTPUT_W;
 
-    outputCanvas.height =
-      OUTPUT_H;
+const destinationPoints =
+cv.matFromArray(
+4,
+1,
+cv.CV_32FC2,
+[
 
+0,0,
 
-    cv.imshow(
-      outputCanvas,
-      finalMat
-    );
+OUTPUT_W,0,
 
+OUTPUT_W,OUTPUT_H,
 
-    sourcePoints.delete();
-    destinationPoints.delete();
-    matrix.delete();
-    corrected.delete();
-    trimmed.delete();
-    finalMat.delete();
+0,OUTPUT_H
 
+]
+);
 
-    return true;
 
-  }
+const matrix =
+cv.getPerspectiveTransform(
+sourcePoints,
+destinationPoints
+);
 
-  finally {
+const corrected =
+new cv.Mat();
 
-    src.delete();
-    gray.delete();
-    blurred.delete();
-    edges.delete();
-    contours.delete();
-    hierarchy.delete();
-  }
+
+cv.warpPerspective(
+src,
+corrected,
+matrix,
+new cv.Size(
+OUTPUT_W,
+OUTPUT_H
+),
+cv.INTER_LINEAR,
+cv.BORDER_REPLICATE
+);
+
+
+const trimX =
+Math.round(
+OUTPUT_W * .035
+);
+
+const trimY =
+Math.round(
+OUTPUT_H * .045
+);
+
+
+const trimmedRect =
+new cv.Rect(
+trimX,
+trimY,
+OUTPUT_W - trimX * 2,
+OUTPUT_H - trimY * 2
+);
+
+
+const trimmed =
+corrected.roi(
+trimmedRect
+);
+
+const finalMat =
+new cv.Mat();
+
+
+cv.resize(
+trimmed,
+finalMat,
+new cv.Size(
+OUTPUT_W,
+OUTPUT_H
+),
+0,
+0,
+cv.INTER_AREA
+);
+
+
+outputCanvas.width =
+OUTPUT_W;
+
+outputCanvas.height =
+OUTPUT_H;
+
+
+cv.imshow(
+outputCanvas,
+finalMat
+);
+
+
+sourcePoints.delete();
+destinationPoints.delete();
+matrix.delete();
+corrected.delete();
+trimmed.delete();
+finalMat.delete();
+
+
+return true;
+
+}
+
+finally {
+
+src.delete();
+gray.delete();
+blurred.delete();
+edges.delete();
+contours.delete();
+hierarchy.delete();
+
+}
+
 }
 
 
 /* =========================================
-   ORDER DETECTED CORNERS
+   ORDER CORNERS
 ========================================= */
 
 function orderPoints(points) {
 
-  let tl =
-    points[0];
+let tl =
+points[0];
 
-  let tr =
-    points[0];
+let tr =
+points[0];
 
-  let br =
-    points[0];
+let br =
+points[0];
 
-  let bl =
-    points[0];
+let bl =
+points[0];
 
+let smallestSum =
+Infinity;
 
-  let smallestSum =
-    Infinity;
+let largestSum =
+-Infinity;
 
-  let largestSum =
-    -Infinity;
+let smallestDifference =
+Infinity;
 
-  let smallestDifference =
-    Infinity;
-
-  let largestDifference =
-    -Infinity;
-
-
-  points.forEach(
-    function(point) {
-
-      const sum =
-        point.x +
-        point.y;
-
-      const difference =
-        point.y -
-        point.x;
+let largestDifference =
+-Infinity;
 
 
-      if (
-        sum <
-        smallestSum
-      ) {
+points.forEach(
+function(point) {
 
-        smallestSum =
-          sum;
+const sum =
+point.x + point.y;
 
-        tl =
-          point;
-      }
+const difference =
+point.y - point.x;
 
 
-      if (
-        sum >
-        largestSum
-      ) {
+if (sum < smallestSum) {
 
-        largestSum =
-          sum;
+smallestSum =
+sum;
 
-        br =
-          point;
-      }
+tl =
+point;
+
+}
 
 
-      if (
-        difference <
-        smallestDifference
-      ) {
+if (sum > largestSum) {
 
-        smallestDifference =
-          difference;
+largestSum =
+sum;
 
-        tr =
-          point;
-      }
+br =
+point;
+
+}
 
 
-      if (
-        difference >
-        largestDifference
-      ) {
+if (
+difference <
+smallestDifference
+) {
 
-        largestDifference =
-          difference;
+smallestDifference =
+difference;
 
-        bl =
-          point;
-      }
+tr =
+point;
 
-    }
-  );
+}
 
 
-  return {
-    tl,
-    tr,
-    br,
-    bl
-  };
+if (
+difference >
+largestDifference
+) {
+
+largestDifference =
+difference;
+
+bl =
+point;
+
+}
+
+}
+);
+
+
+return {
+tl,
+tr,
+br,
+bl
+};
+
 }
 
 
@@ -1175,168 +1119,172 @@ function orderPoints(points) {
 
 function distance(a,b) {
 
-  return Math.hypot(
-    a.x - b.x,
-    a.y - b.y
-  );
+return Math.hypot(
+a.x - b.x,
+a.y - b.y
+);
+
 }
 
 
 /* =========================================
-   FALLBACK CENTER CROP
+   FALLBACK CROP
 ========================================= */
 
 function centerCropFlag() {
 
-  const TARGET_W =
-    1200;
+const TARGET_W =
+1200;
 
-  const TARGET_H =
-    700;
+const TARGET_H =
+700;
 
-  const targetRatio =
-    TARGET_W /
-    TARGET_H;
+const targetRatio =
+TARGET_W / TARGET_H;
 
-  const sourceRatio =
-    workCanvas.width /
-    workCanvas.height;
-
-
-  let sx =
-    0;
-
-  let sy =
-    0;
-
-  let sw =
-    workCanvas.width;
-
-  let sh =
-    workCanvas.height;
+const sourceRatio =
+workCanvas.width /
+workCanvas.height;
 
 
-  if (
-    sourceRatio >
-    targetRatio
-  ) {
+let sx = 0;
+let sy = 0;
 
-    sw =
-      workCanvas.height *
-      targetRatio;
+let sw =
+workCanvas.width;
 
-    sx =
-      (
-        workCanvas.width -
-        sw
-      ) / 2;
-
-  }
-
-  else {
-
-    sh =
-      workCanvas.width /
-      targetRatio;
-
-    sy =
-      (
-        workCanvas.height -
-        sh
-      ) / 2;
-  }
+let sh =
+workCanvas.height;
 
 
-  outputCanvas.width =
-    TARGET_W;
+if (
+sourceRatio >
+targetRatio
+) {
 
-  outputCanvas.height =
-    TARGET_H;
+sw =
+workCanvas.height *
+targetRatio;
+
+sx =
+(
+workCanvas.width -
+sw
+) / 2;
+
+}
+
+else {
+
+sh =
+workCanvas.width /
+targetRatio;
+
+sy =
+(
+workCanvas.height -
+sh
+) / 2;
+
+}
 
 
-  const ctx =
-    outputCanvas.getContext(
-      "2d"
-    );
+outputCanvas.width =
+TARGET_W;
+
+outputCanvas.height =
+TARGET_H;
 
 
-  ctx.drawImage(
-    workCanvas,
+const ctx =
+outputCanvas.getContext(
+"2d"
+);
 
-    sx,
-    sy,
-    sw,
-    sh,
 
-    0,
-    0,
-    TARGET_W,
-    TARGET_H
-  );
+ctx.drawImage(
+workCanvas,
+
+sx,
+sy,
+sw,
+sh,
+
+0,
+0,
+TARGET_W,
+TARGET_H
+);
+
 }
 
 
 /* =========================================
-   CREATE FINAL JPEG
+   CREATE JPEG
 ========================================= */
 
 function createBlobFromOutput() {
 
-  return new Promise(
-    function(resolve,reject) {
+return new Promise(
+function(resolve,reject) {
 
-      outputCanvas.toBlob(
-        function(blob) {
+outputCanvas.toBlob(
+function(blob) {
 
-          if (!blob) {
+if (!blob) {
 
-            reject(
-              new Error(
-                "Unable to create processed image."
-              )
-            );
+reject(
+new Error(
+"Unable to create processed image."
+)
+);
 
-            return;
-          }
+return;
 
-
-          processedBlob =
-            blob;
+}
 
 
-          const previewURL =
-            URL.createObjectURL(
-              blob
-            );
+processedBlob =
+blob;
 
 
-          if (
-            previewImage.dataset.url
-          ) {
-
-            URL.revokeObjectURL(
-              previewImage.dataset.url
-            );
-          }
+const previewURL =
+URL.createObjectURL(
+blob
+);
 
 
-          previewImage.dataset.url =
-            previewURL;
+if (
+previewImage.dataset.url
+) {
 
-          previewImage.src =
-            previewURL;
+URL.revokeObjectURL(
+previewImage.dataset.url
+);
+
+}
 
 
-          resolve();
+previewImage.dataset.url =
+previewURL;
 
-        },
+previewImage.src =
+previewURL;
 
-        "image/jpeg",
 
-        .88
-      );
-    }
-  );
+resolve();
+
+},
+
+"image/jpeg",
+
+.88
+
+);
+
+}
+);
+
 }
 
 
@@ -1345,176 +1293,191 @@ function createBlobFromOutput() {
 ========================================= */
 
 submitButton.addEventListener(
-  "click",
-  async function() {
+"click",
+async function() {
 
-    if (!processedBlob) {
+if (!processedBlob) {
 
-      showError(
-        "Please photograph your flag first."
-      );
+showError(
+"Please photograph your flag first."
+);
 
-      return;
-    }
+return;
 
-
-    resetMessages();
+}
 
 
-    submitButton.disabled =
-      true;
-
-    submitButton.textContent =
-      "Submitting...";
+resetMessages();
 
 
-    try {
+submitButton.disabled =
+true;
 
-      const fileName =
-        "flag-" +
-        Date.now() +
-        "-" +
-        Math.random()
-          .toString(36)
-          .slice(2,8) +
-        ".jpg";
+submitButton.textContent =
+"Submitting...";
 
 
-      const uploadResult =
-        await db
-          .storage
-          .from("flags")
-          .upload(
-            fileName,
-            processedBlob,
-            {
-              contentType:
-                "image/jpeg",
-
-              upsert:
-                false
-            }
-          );
+let fileName =
+null;
 
 
-      if (
-        uploadResult.error
-      ) {
+try {
 
-        throw (
-          uploadResult.error
-        );
-      }
+/*
+IMPORTANT:
 
+We read the current activity RIGHT
+BEFORE submission.
 
-      const cleanName =
-        nameInput.value
-          .trim()
-          .slice(0,40);
+That means a participant who already
+has the QR page open still submits to
+the correct current activity.
+*/
 
-
-      const insertResult =
-        await db
-          .from("submissions")
-          .insert({
-
-            name:
-              cleanName || null,
-
-            image_path:
-              fileName
-
-          });
+const activityId =
+await getCurrentActivityId();
 
 
-      if (
-        insertResult.error
-      ) {
-
-        /*
-          Remove the uploaded image if
-          the database record fails.
-        */
-
-        await db
-          .storage
-          .from("flags")
-          .remove([
-            fileName
-          ]);
+fileName =
+"flag-" +
+Date.now() +
+"-" +
+Math.random()
+.toString(36)
+.slice(2,8) +
+".jpg";
 
 
-        throw (
-          insertResult.error
-        );
-      }
+const uploadResult =
+await db
+.storage
+.from("flags")
+.upload(
+fileName,
+processedBlob,
+{
+
+contentType:
+"image/jpeg",
+
+upsert:
+false
+
+}
+);
 
 
-      successMessage.style.display =
-        "block";
+if (
+uploadResult.error
+) {
+
+throw uploadResult.error;
+
+}
 
 
-      submitButton.style.display =
-        "none";
+const cleanName =
+nameInput.value
+.trim()
+.slice(0,40);
 
 
-      retryButton.style.display =
-        "none";
+const insertResult =
+await db
+.from("submissions")
+.insert({
+
+name:
+cleanName || null,
+
+image_path:
+fileName,
+
+activity_id:
+activityId
+
+});
 
 
-      photoInput.value =
-        "";
+if (
+insertResult.error
+) {
+
+await db
+.storage
+.from("flags")
+.remove([
+fileName
+]);
+
+throw insertResult.error;
+
+}
 
 
-      successMessage.scrollIntoView({
-        behavior:
-          "smooth",
+successMessage.style.display =
+"block";
 
-        block:
-          "center"
-      });
+submitButton.style.display =
+"none";
 
-    }
+retryButton.style.display =
+"none";
 
-    catch (error) {
-
-      console.error(error);
+photoInput.value =
+"";
 
 
-      showError(
-        "Your flag could not be submitted. Please try again."
-      );
+successMessage.scrollIntoView({
+
+behavior:
+"smooth",
+
+block:
+"center"
+
+});
+
+}
+
+catch (error) {
+
+console.error(error);
 
 
-      submitButton.disabled =
-        false;
+showError(
+"Your flag could not be submitted. Please try again."
+);
 
 
-      submitButton.textContent =
-        "Submit My Flag";
-    }
+submitButton.disabled =
+false;
 
-  }
+submitButton.textContent =
+"Submit My Flag";
+
+}
+
+}
 );
 
 
 /* =========================================
-   CHOOSE ANOTHER PHOTO
+   DIFFERENT PHOTO
 ========================================= */
 
 retryButton.addEventListener(
-  "click",
-  function() {
+"click",
+function() {
 
-    resetMessages();
+resetMessages();
 
+photoInput.value =
+"";
 
-    photoInput.value =
-      "";
+photoInput.click();
 
-
-    photoInput.click();
-  }
+}
 );
 
 
@@ -1524,24 +1487,26 @@ retryButton.addEventListener(
 
 function resetMessages() {
 
-  successMessage.style.display =
-    "none";
+successMessage.style.display =
+"none";
 
-  errorMessage.style.display =
-    "none";
+errorMessage.style.display =
+"none";
 
-  errorMessage.textContent =
-    "";
+errorMessage.textContent =
+"";
+
 }
 
 
 function showError(message) {
 
-  errorMessage.textContent =
-    message;
+errorMessage.textContent =
+message;
 
-  errorMessage.style.display =
-    "block";
+errorMessage.style.display =
+"block";
+
 }
 
 </script>
