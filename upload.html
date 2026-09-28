@@ -1,1313 +1,1550 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<title>LWSS Flag Activity</title>
 
-  <title>LWSS Flag Activity</title>
+<style>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    html,
-    body {
-      margin: 0;
-      min-height: 100%;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eef3f6;
+  color: #17344d;
+}
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #eef3f7;
-      color: #18324a;
-    }
+.page {
+  width: min(620px, 100%);
+  margin: 0 auto;
+  padding: 22px 16px 45px;
+}
 
-    .upload-page {
-      min-height: 100vh;
-      padding: 28px 16px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
+.brand {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #a37b25;
+  margin-bottom: 8px;
+}
 
-    .upload-card {
-      width: 100%;
-      max-width: 520px;
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 30px 24px;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
-    }
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: 0 8px 30px rgba(20,50,70,.12);
+}
 
-    .activity-label {
-      margin-bottom: 8px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: #b8892e;
-    }
+h1 {
+  margin: 0;
+  text-align: center;
+  font-size: 30px;
+  line-height: 1.08;
+  color: #173b58;
+}
 
-    h1 {
-      margin: 0;
-      text-align: center;
-      font-size: 30px;
-      color: #15375a;
-    }
+.prompt {
+  margin: 13px auto 22px;
+  text-align: center;
+  line-height: 1.5;
+  color: #40596b;
+  max-width: 500px;
+}
 
-    .prompt {
-      margin: 14px 0 24px;
-      text-align: center;
-      font-size: 18px;
-      line-height: 1.45;
-    }
+.instructions {
+  padding: 14px;
+  margin-bottom: 20px;
+  background: #f5f8fa;
+  border-radius: 12px;
+  line-height: 1.45;
+  font-size: 14px;
+}
 
-    .prompt strong {
-      color: #b8892e;
-    }
+label {
+  display: block;
+  margin: 17px 0 7px;
+  font-weight: 700;
+}
 
-    .instructions {
-      margin-bottom: 24px;
-      padding: 16px;
-      background: #edf4f8;
-      border-radius: 14px;
-      text-align: center;
-    }
+input[type="text"] {
+  width: 100%;
+  border: 1px solid #cbd6dc;
+  border-radius: 10px;
+  padding: 13px;
+  font-size: 16px;
+}
 
-    .instructions p {
-      margin: 6px 0 0;
-      line-height: 1.45;
-    }
+.file-box {
+  position: relative;
+  margin-top: 6px;
+}
 
-    label {
-      display: block;
-      margin: 18px 0 7px;
-      font-weight: 700;
-    }
+input[type="file"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
 
-    label span {
-      font-weight: 400;
-      color: #6f7b85;
-    }
+.file-button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  background: #173b58;
+  color: white;
+  text-align: center;
+  font-weight: 800;
+  cursor: pointer;
+}
 
-    input[type="text"] {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #b9c4cc;
-      border-radius: 10px;
-      font-size: 16px;
-    }
+.processing {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #eef4f7;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+}
 
-    input[type="file"] {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #cbd3d9;
-      border-radius: 10px;
-      background: #f5f7f9;
-      font-size: 15px;
-    }
+.preview-section {
+  display: none;
+  margin-top: 22px;
+}
 
-    .preview-area {
-      margin-top: 22px;
-      text-align: center;
-    }
+.preview-title {
+  font-weight: 800;
+  margin-bottom: 8px;
+}
 
-    .preview-area img {
-      display: block;
-      width: 100%;
-      max-height: 340px;
-      object-fit: contain;
-      border: 1px solid #d4dce2;
-      border-radius: 12px;
-    }
+.preview-note {
+  margin-bottom: 10px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #617482;
+}
 
-    button {
-      width: 100%;
-      margin-top: 20px;
-      padding: 15px 18px;
-      border: none;
-      border-radius: 12px;
-      background: #15375a;
-      color: #ffffff;
-      font-size: 17px;
-      font-weight: 700;
-      cursor: pointer;
-    }
+.preview-frame {
+  width: 100%;
+  aspect-ratio: 12 / 7;
+  background: #dce5ea;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0,0,0,.16);
+}
 
-    button:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
+.preview-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    .secondary-button {
-      margin-top: 10px;
-      background: #ffffff;
-      color: #15375a;
-      border: 2px solid #15375a;
-    }
+button {
+  width: 100%;
+  margin-top: 20px;
+  border: 0;
+  border-radius: 11px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
 
-    .status-message {
-      min-height: 24px;
-      margin-top: 20px;
-      text-align: center;
-      font-weight: 700;
-      line-height: 1.4;
-    }
+.submit-button {
+  display: none;
+  background: #d3aa4d;
+  color: #17344d;
+}
 
-    .status-message.error {
-      color: #a32626;
-    }
+.submit-button:disabled {
+  opacity: .55;
+  cursor: default;
+}
 
-    @media (max-width: 480px) {
-      .upload-page {
-        padding: 18px 12px;
-      }
+.retry-button {
+  display: none;
+  margin-top: 10px;
+  background: #edf1f3;
+  color: #17344d;
+}
 
-      .upload-card {
-        padding: 24px 18px;
-      }
+.message {
+  display: none;
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 11px;
+  text-align: center;
+  line-height: 1.4;
+}
 
-      h1 {
-        font-size: 27px;
-      }
-    }
-  </style>
+.success {
+  background: #e7f5ec;
+  color: #235c38;
+}
+
+.error {
+  background: #fdecec;
+  color: #8a3030;
+}
+
+canvas {
+  display: none;
+}
+
+</style>
 </head>
 
 <body>
 
-  <main class="upload-page">
+<div class="page">
 
-    <section class="upload-card">
+  <div class="brand">
+    LWSS FLAG ACTIVITY
+  </div>
 
-      <div class="activity-label">
-        LWSS FLAG ACTIVITY
-      </div>
+  <div class="card">
 
-      <h1>What will you contribute?</h1>
+    <h1>
+      What will you contribute?
+    </h1>
 
-      <p class="prompt">
-        What will you contribute to help LWSS reach its
-        <strong>60% proficiency goal?</strong>
-      </p>
+    <div class="prompt">
+      What will you contribute to help LWSS reach its 60% proficiency goal?
+    </div>
 
-      <div class="instructions">
-        <strong>Finished decorating your flag?</strong>
+    <div class="instructions">
+      Finished decorating your flag? Take a photo of the entire flag with all four corner markers visible.
+    </div>
 
-        <p>
-          Take a photo of the entire flag with all four
-          corner markers visible.
-        </p>
-      </div>
+    <label for="name">
+      First name (optional)
+    </label>
 
-      <label for="name">
-        First name <span>(optional)</span>
-      </label>
+    <input
+      id="name"
+      type="text"
+      maxlength="40"
+      placeholder="First name"
+    >
 
-      <input
-        type="text"
-        id="name"
-        maxlength="40"
-        placeholder="First name"
-      >
+    <label>
+      Photograph your flag
+    </label>
 
-      <label for="flagPhoto">
-        Photograph your flag
-      </label>
+    <div class="file-box">
 
       <input
+        id="photoInput"
         type="file"
-        id="flagPhoto"
         accept="image/*"
         capture="environment"
       >
 
-      <div
-        id="previewArea"
-        class="preview-area"
-        hidden
+      <label
+        for="photoInput"
+        class="file-button"
       >
-        <p><strong>Photo preview</strong></p>
+        Take or Choose Photo
+      </label>
+
+    </div>
+
+    <div
+      id="processing"
+      class="processing"
+    >
+      Preparing your flag...
+    </div>
+
+    <div
+      id="previewSection"
+      class="preview-section"
+    >
+
+      <div class="preview-title">
+        Preview
+      </div>
+
+      <div class="preview-note">
+        This is how your artwork will appear in the stadium.
+      </div>
+
+      <div class="preview-frame">
 
         <img
           id="previewImage"
-          alt="Preview of your flag"
+          alt="Processed flag preview"
         >
+
       </div>
 
-      <button
-        id="submitButton"
-        type="button"
-        disabled
-      >
-        Submit My Flag
-      </button>
+    </div>
 
-      <button
-        id="retakeButton"
-        class="secondary-button"
-        type="button"
-        hidden
-      >
-        Retake / Choose Another Photo
-      </button>
+    <button
+      id="submitButton"
+      class="submit-button"
+      type="button"
+    >
+      Submit My Flag
+    </button>
 
-      <div
-        id="statusMessage"
-        class="status-message"
-        aria-live="polite"
-      ></div>
+    <button
+      id="retryButton"
+      class="retry-button"
+      type="button"
+    >
+      Choose a Different Photo
+    </button>
 
-    </section>
+    <div
+      id="successMessage"
+      class="message success"
+    >
+      Your flag was submitted! Watch for it in the stadium.
+    </div>
 
-  </main>
+    <div
+      id="errorMessage"
+      class="message error"
+    ></div>
+
+  </div>
+
+</div>
+
+<canvas id="workCanvas"></canvas>
+<canvas id="outputCanvas"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script async src="https://docs.opencv.org/4.x/opencv.js"></script>
+
+<script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+  "https://oooanvnjvuwzsqocwzjs.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_4lDV3RGlIGFgNVHiTUvhhg_Gk0UFP-8";
+
+const db =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+/* =========================================
+   ELEMENTS
+========================================= */
 
-  <script>
+const photoInput =
+  document.getElementById("photoInput");
 
-    // =========================================
-    // SUPABASE CONNECTION
-    // =========================================
+const nameInput =
+  document.getElementById("name");
 
-    const SUPABASE_URL =
-      "https://oooanvnjvuwzsqocwzjs.supabase.co";
+const processing =
+  document.getElementById("processing");
 
-    const SUPABASE_KEY =
-      "<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
+const previewSection =
+  document.getElementById("previewSection");
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+const previewImage =
+  document.getElementById("previewImage");
 
-  <title>LWSS Flag Activity</title>
+const submitButton =
+  document.getElementById("submitButton");
 
-  <style>
-    * {
-      box-sizing: border-box;
+const retryButton =
+  document.getElementById("retryButton");
+
+const successMessage =
+  document.getElementById("successMessage");
+
+const errorMessage =
+  document.getElementById("errorMessage");
+
+const workCanvas =
+  document.getElementById("workCanvas");
+
+const outputCanvas =
+  document.getElementById("outputCanvas");
+
+
+/* =========================================
+   STATE
+========================================= */
+
+let processedBlob = null;
+
+let cvReady = false;
+
+
+/* =========================================
+   WAIT FOR OPENCV
+========================================= */
+
+function waitForOpenCV() {
+
+  if (
+    typeof cv !== "undefined" &&
+    cv.Mat
+  ) {
+
+    cvReady = true;
+
+    return;
+
+  }
+
+  setTimeout(
+    waitForOpenCV,
+    250
+  );
+}
+
+waitForOpenCV();
+
+
+/* =========================================
+   PHOTO SELECTED
+========================================= */
+
+photoInput.addEventListener(
+  "change",
+  async function() {
+
+    const file =
+      photoInput.files[0];
+
+    if (!file) {
+      return;
     }
 
-    html,
-    body {
-      margin: 0;
-      min-height: 100%;
-    }
+    resetMessages();
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #eef3f7;
-      color: #18324a;
-    }
+    previewSection.style.display =
+      "none";
 
-    .upload-page {
-      min-height: 100vh;
-      padding: 28px 16px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
+    submitButton.style.display =
+      "none";
 
-    .upload-card {
-      width: 100%;
-      max-width: 520px;
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 30px 24px;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
-    }
+    retryButton.style.display =
+      "none";
 
-    .activity-label {
-      margin-bottom: 8px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: #b8892e;
-    }
+    processing.style.display =
+      "block";
 
-    h1 {
-      margin: 0;
-      text-align: center;
-      font-size: 30px;
-      color: #15375a;
-    }
+    processedBlob =
+      null;
 
-    .prompt {
-      margin: 14px 0 24px;
-      text-align: center;
-      font-size: 18px;
-      line-height: 1.45;
-    }
-
-    .prompt strong {
-      color: #b8892e;
-    }
-
-    .instructions {
-      margin-bottom: 24px;
-      padding: 16px;
-      background: #edf4f8;
-      border-radius: 14px;
-      text-align: center;
-    }
-
-    .instructions p {
-      margin: 6px 0 0;
-      line-height: 1.45;
-    }
-
-    label {
-      display: block;
-      margin: 18px 0 7px;
-      font-weight: 700;
-    }
-
-    label span {
-      font-weight: 400;
-      color: #6f7b85;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #b9c4cc;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-
-    input[type="file"] {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #cbd3d9;
-      border-radius: 10px;
-      background: #f5f7f9;
-      font-size: 15px;
-    }
-
-    .preview-area {
-      margin-top: 22px;
-      text-align: center;
-    }
-
-    .preview-area img {
-      display: block;
-      width: 100%;
-      max-height: 340px;
-      object-fit: contain;
-      border: 1px solid #d4dce2;
-      border-radius: 12px;
-    }
-
-    button {
-      width: 100%;
-      margin-top: 20px;
-      padding: 15px 18px;
-      border: none;
-      border-radius: 12px;
-      background: #15375a;
-      color: #ffffff;
-      font-size: 17px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
-
-    .secondary-button {
-      margin-top: 10px;
-      background: #ffffff;
-      color: #15375a;
-      border: 2px solid #15375a;
-    }
-
-    .status-message {
-      min-height: 24px;
-      margin-top: 20px;
-      text-align: center;
-      font-weight: 700;
-      line-height: 1.4;
-    }
-
-    .status-message.error {
-      color: #a32626;
-    }
-
-    @media (max-width: 480px) {
-      .upload-page {
-        padding: 18px 12px;
-      }
-
-      .upload-card {
-        padding: 24px 18px;
-      }
-
-      h1 {
-        font-size: 27px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <main class="upload-page">
-
-    <section class="upload-card">
-
-      <div class="activity-label">
-        LWSS FLAG ACTIVITY
-      </div>
-
-      <h1>What will you contribute?</h1>
-
-      <p class="prompt">
-        What will you contribute to help LWSS reach its
-        <strong>60% proficiency goal?</strong>
-      </p>
-
-      <div class="instructions">
-        <strong>Finished decorating your flag?</strong>
-
-        <p>
-          Take a photo of the entire flag with all four
-          corner markers visible.
-        </p>
-      </div>
-
-      <label for="name">
-        First name <span>(optional)</span>
-      </label>
-
-      <input
-        type="text"
-        id="name"
-        maxlength="40"
-        placeholder="First name"
-      >
-
-      <label for="flagPhoto">
-        Photograph your flag
-      </label>
-
-      <input
-        type="file"
-        id="flagPhoto"
-        accept="image/*"
-        capture="environment"
-      >
-
-      <div
-        id="previewArea"
-        class="preview-area"
-        hidden
-      >
-        <p><strong>Photo preview</strong></p>
-
-        <img
-          id="previewImage"
-          alt="Preview of your flag"
-        >
-      </div>
-
-      <button
-        id="submitButton"
-        type="button"
-        disabled
-      >
-        Submit My Flag
-      </button>
-
-      <button
-        id="retakeButton"
-        class="secondary-button"
-        type="button"
-        hidden
-      >
-        Retake / Choose Another Photo
-      </button>
-
-      <div
-        id="statusMessage"
-        class="status-message"
-        aria-live="polite"
-      ></div>
-
-    </section>
-
-  </main>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script>
-
-    // =========================================
-    // SUPABASE CONNECTION
-    // =========================================
-
-    const SUPABASE_URL =
-      "https://oooanvnjvuwzsqocwzjs.supabase.co";
-
-    const SUPABASE_KEY =
-      "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
-
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
-
-
-    // =========================================
-    // PAGE ELEMENTS
-    // =========================================
-
-    const photoInput =
-      document.getElementById("flagPhoto");
-
-    const previewArea =
-      document.getElementById("previewArea");
-
-    const previewImage =
-      document.getElementById("previewImage");
-
-    const submitButton =
-      document.getElementById("submitButton");
-
-    const retakeButton =
-      document.getElementById("retakeButton");
-
-    const statusMessage =
-      document.getElementById("statusMessage");
-
-    const nameInput =
-      document.getElementById("name");
-
-    let selectedFile = null;
-    let previewURL = null;
-
-
-    // =========================================
-    // PHOTO SELECTION
-    // =========================================
-
-    photoInput.addEventListener(
-      "change",
-      function () {
-
-        const file = photoInput.files[0];
-
-        if (!file) {
-          return;
-        }
-
-        if (!file.type.startsWith("image/")) {
-          showStatus(
-            "Please choose an image.",
-            true
-          );
-          return;
-        }
-
-        selectedFile = file;
-
-        if (previewURL) {
-          URL.revokeObjectURL(previewURL);
-        }
-
-        previewURL =
-          URL.createObjectURL(file);
-
-        previewImage.src = previewURL;
-
-        previewArea.hidden = false;
-        retakeButton.hidden = false;
-        submitButton.disabled = false;
-
-        showStatus("");
-      }
-    );
-
-
-    // =========================================
-    // RETAKE
-    // =========================================
-
-    retakeButton.addEventListener(
-      "click",
-      function () {
-
-        photoInput.value = "";
-        selectedFile = null;
-
-        previewArea.hidden = true;
-        retakeButton.hidden = true;
-        submitButton.disabled = true;
-
-        showStatus("");
-
-        photoInput.click();
-      }
-    );
-
-
-    // =========================================
-    // SUBMIT
-    // =========================================
-
-    submitButton.addEventListener(
-      "click",
-      async function () {
-
-        if (!selectedFile) {
-          return;
-        }
-
-        submitButton.disabled = true;
-        retakeButton.disabled = true;
-
-        showStatus(
-          "Preparing your flag..."
-        );
-
-        try {
-
-          const processedImage =
-            await prepareImage(selectedFile);
-
-          const fileName =
-            "flag-" +
-            Date.now() +
-            ".jpg";
-
-          showStatus(
-            "Uploading your flag..."
-          );
-
-          const uploadResult =
-            await supabaseClient
-              .storage
-              .from("flags")
-              .upload(
-                fileName,
-                processedImage,
-                {
-                  contentType: "image/jpeg",
-                  upsert: false
-                }
-              );
-
-          if (uploadResult.error) {
-            throw uploadResult.error;
-          }
-
-          showStatus(
-            "Finishing your submission..."
-          );
-
-          const firstName =
-            nameInput.value.trim();
-
-          const databaseResult =
-            await supabaseClient
-              .from("submissions")
-              .insert([
-                {
-                  name:
-                    firstName || null,
-
-                  image_path:
-                    fileName
-                }
-              ]);
-
-          if (databaseResult.error) {
-            throw databaseResult.error;
-          }
-
-          showStatus(
-            "Your flag was submitted! Watch for it in the stadium."
-          );
-
-          submitButton.hidden = true;
-          retakeButton.hidden = true;
-          photoInput.disabled = true;
-          nameInput.disabled = true;
-
-        } catch (error) {
-
-          console.error(
-            "LWSS upload error:",
-            error
-          );
-
-          showStatus(
-            "We couldn't submit your flag. Please try again.",
-            true
-          );
-
-          submitButton.disabled = false;
-          retakeButton.disabled = false;
-        }
-      }
-    );
-
-
-    // =========================================
-    // IMAGE PROCESSING
-    // =========================================
-
-    async function prepareImage(file) {
+    try {
 
       const image =
         await loadImage(file);
 
-      const canvas =
-        document.createElement("canvas");
+      await processPhoto(image);
 
-      const context =
-        canvas.getContext("2d");
+      processing.style.display =
+        "none";
 
-      const outputWidth = 1200;
-      const outputHeight = 700;
+      previewSection.style.display =
+        "block";
 
-      canvas.width = outputWidth;
-      canvas.height = outputHeight;
+      submitButton.style.display =
+        "block";
 
-      const imageRatio =
-        image.width / image.height;
+      retryButton.style.display =
+        "block";
 
-      const outputRatio =
-        outputWidth / outputHeight;
-
-      let sourceX = 0;
-      let sourceY = 0;
-
-      let sourceWidth =
-        image.width;
-
-      let sourceHeight =
-        image.height;
-
-      if (imageRatio > outputRatio) {
-
-        sourceWidth =
-          image.height *
-          outputRatio;
-
-        sourceX =
-          (image.width -
-            sourceWidth) / 2;
-
-      } else {
-
-        sourceHeight =
-          image.width /
-          outputRatio;
-
-        sourceY =
-          (image.height -
-            sourceHeight) / 2;
-      }
-
-      context.fillStyle =
-        "#ffffff";
-
-      context.fillRect(
-        0,
-        0,
-        outputWidth,
-        outputHeight
-      );
-
-      context.drawImage(
-        image,
-        sourceX,
-        sourceY,
-        sourceWidth,
-        sourceHeight,
-        0,
-        0,
-        outputWidth,
-        outputHeight
-      );
-
-      return await new Promise(
-        function (resolve, reject) {
-
-          canvas.toBlob(
-            function (blob) {
-
-              if (blob) {
-                resolve(blob);
-              } else {
-                reject(
-                  new Error(
-                    "Image processing failed."
-                  )
-                );
-              }
-            },
-
-            "image/jpeg",
-            0.9
-          );
-        }
-      );
     }
 
+    catch (error) {
 
-    // =========================================
-    // LOAD IMAGE
-    // =========================================
+      console.error(error);
 
-    function loadImage(file) {
+      processing.style.display =
+        "none";
 
-      return new Promise(
-        function (resolve, reject) {
-
-          const image =
-            new Image();
-
-          const imageURL =
-            URL.createObjectURL(file);
-
-          image.onload =
-            function () {
-
-              URL.revokeObjectURL(
-                imageURL
-              );
-
-              resolve(image);
-            };
-
-          image.onerror =
-            function () {
-
-              URL.revokeObjectURL(
-                imageURL
-              );
-
-              reject(
-                new Error(
-                  "Unable to read image."
-                )
-              );
-            };
-
-          image.src = imageURL;
-        }
+      showError(
+        "We couldn't prepare that photo. Please take another picture with the entire flag sheet visible."
       );
+
+      retryButton.style.display =
+        "block";
     }
 
-
-    // =========================================
-    // STATUS
-    // =========================================
-
-    function showStatus(
-      message,
-      isError = false
-    ) {
-
-      statusMessage.textContent =
-        message;
-
-      statusMessage.classList.toggle(
-        "error",
-        isError
-      );
-    }
-
-  </script>
-
-</body>
-</html>";
-
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
+  }
+);
 
 
-    // =========================================
-    // PAGE ELEMENTS
-    // =========================================
+/* =========================================
+   LOAD IMAGE
+========================================= */
 
-    const photoInput =
-      document.getElementById("flagPhoto");
+function loadImage(file) {
 
-    const previewArea =
-      document.getElementById("previewArea");
-
-    const previewImage =
-      document.getElementById("previewImage");
-
-    const submitButton =
-      document.getElementById("submitButton");
-
-    const retakeButton =
-      document.getElementById("retakeButton");
-
-    const statusMessage =
-      document.getElementById("statusMessage");
-
-    const nameInput =
-      document.getElementById("name");
-
-    let selectedFile = null;
-    let previewURL = null;
-
-
-    // =========================================
-    // PHOTO SELECTION
-    // =========================================
-
-    photoInput.addEventListener(
-      "change",
-      function () {
-
-        const file = photoInput.files[0];
-
-        if (!file) {
-          return;
-        }
-
-        if (!file.type.startsWith("image/")) {
-          showStatus(
-            "Please choose an image.",
-            true
-          );
-          return;
-        }
-
-        selectedFile = file;
-
-        if (previewURL) {
-          URL.revokeObjectURL(previewURL);
-        }
-
-        previewURL =
-          URL.createObjectURL(file);
-
-        previewImage.src = previewURL;
-
-        previewArea.hidden = false;
-        retakeButton.hidden = false;
-        submitButton.disabled = false;
-
-        showStatus("");
-      }
-    );
-
-
-    // =========================================
-    // RETAKE
-    // =========================================
-
-    retakeButton.addEventListener(
-      "click",
-      function () {
-
-        photoInput.value = "";
-        selectedFile = null;
-
-        previewArea.hidden = true;
-        retakeButton.hidden = true;
-        submitButton.disabled = true;
-
-        showStatus("");
-
-        photoInput.click();
-      }
-    );
-
-
-    // =========================================
-    // SUBMIT
-    // =========================================
-
-    submitButton.addEventListener(
-      "click",
-      async function () {
-
-        if (!selectedFile) {
-          return;
-        }
-
-        submitButton.disabled = true;
-        retakeButton.disabled = true;
-
-        showStatus(
-          "Preparing your flag..."
-        );
-
-        try {
-
-          const processedImage =
-            await prepareImage(selectedFile);
-
-          const fileName =
-            "flag-" +
-            Date.now() +
-            ".jpg";
-
-          showStatus(
-            "Uploading your flag..."
-          );
-
-          const uploadResult =
-            await supabaseClient
-              .storage
-              .from("flags")
-              .upload(
-                fileName,
-                processedImage,
-                {
-                  contentType: "image/jpeg",
-                  upsert: false
-                }
-              );
-
-          if (uploadResult.error) {
-            throw uploadResult.error;
-          }
-
-          showStatus(
-            "Finishing your submission..."
-          );
-
-          const firstName =
-            nameInput.value.trim();
-
-          const databaseResult =
-            await supabaseClient
-              .from("submissions")
-              .insert([
-                {
-                  name:
-                    firstName || null,
-
-                  image_path:
-                    fileName
-                }
-              ]);
-
-          if (databaseResult.error) {
-            throw databaseResult.error;
-          }
-
-          showStatus(
-            "Your flag was submitted! Watch for it in the stadium."
-          );
-
-          submitButton.hidden = true;
-          retakeButton.hidden = true;
-          photoInput.disabled = true;
-          nameInput.disabled = true;
-
-        } catch (error) {
-
-          console.error(
-            "LWSS upload error:",
-            error
-          );
-
-          showStatus(
-            "We couldn't submit your flag. Please try again.",
-            true
-          );
-
-          submitButton.disabled = false;
-          retakeButton.disabled = false;
-        }
-      }
-    );
-
-
-    // =========================================
-    // IMAGE PROCESSING
-    // =========================================
-
-    async function prepareImage(file) {
+  return new Promise(
+    function(resolve,reject) {
 
       const image =
-        await loadImage(file);
+        new Image();
 
-      const canvas =
-        document.createElement("canvas");
+      const url =
+        URL.createObjectURL(file);
 
-      const context =
-        canvas.getContext("2d");
+      image.onload =
+        function() {
 
-      const outputWidth = 1200;
-      const outputHeight = 700;
+          URL.revokeObjectURL(url);
 
-      canvas.width = outputWidth;
-      canvas.height = outputHeight;
+          resolve(image);
+        };
 
-      const imageRatio =
-        image.width / image.height;
+      image.onerror =
+        function() {
 
-      const outputRatio =
-        outputWidth / outputHeight;
+          URL.revokeObjectURL(url);
 
-      let sourceX = 0;
-      let sourceY = 0;
+          reject(
+            new Error(
+              "Unable to read image."
+            )
+          );
+        };
 
-      let sourceWidth =
-        image.width;
+      image.src =
+        url;
+    }
+  );
+}
 
-      let sourceHeight =
-        image.height;
 
-      if (imageRatio > outputRatio) {
+/* =========================================
+   PROCESS PHOTO
+========================================= */
 
-        sourceWidth =
-          image.height *
-          outputRatio;
+async function processPhoto(image) {
 
-        sourceX =
-          (image.width -
-            sourceWidth) / 2;
+  /*
+    First place the phone photo on a
+    manageable working canvas.
 
-      } else {
+    This keeps processing fast even if
+    the phone takes a very large photo.
+  */
 
-        sourceHeight =
-          image.width /
-          outputRatio;
+  const MAX_SIDE =
+    1800;
 
-        sourceY =
-          (image.height -
-            sourceHeight) / 2;
+  let width =
+    image.naturalWidth;
+
+  let height =
+    image.naturalHeight;
+
+  const scale =
+    Math.min(
+      1,
+      MAX_SIDE /
+      Math.max(width,height)
+    );
+
+  width =
+    Math.round(
+      width * scale
+    );
+
+  height =
+    Math.round(
+      height * scale
+    );
+
+  workCanvas.width =
+    width;
+
+  workCanvas.height =
+    height;
+
+  const ctx =
+    workCanvas.getContext(
+      "2d"
+    );
+
+  ctx.drawImage(
+    image,
+    0,
+    0,
+    width,
+    height
+  );
+
+
+  /*
+    If OpenCV is available, attempt
+    automatic rectangular artwork
+    detection and perspective correction.
+
+    If detection is not confident,
+    automatically fall back to a clean
+    center crop instead of failing.
+  */
+
+  if (cvReady) {
+
+    try {
+
+      const detected =
+        detectAndStraightenFlag();
+
+      if (detected) {
+
+        await createBlobFromOutput();
+
+        return;
       }
 
-      context.fillStyle =
-        "#ffffff";
-
-      context.fillRect(
-        0,
-        0,
-        outputWidth,
-        outputHeight
-      );
-
-      context.drawImage(
-        image,
-        sourceX,
-        sourceY,
-        sourceWidth,
-        sourceHeight,
-        0,
-        0,
-        outputWidth,
-        outputHeight
-      );
-
-      return await new Promise(
-        function (resolve, reject) {
-
-          canvas.toBlob(
-            function (blob) {
-
-              if (blob) {
-                resolve(blob);
-              } else {
-                reject(
-                  new Error(
-                    "Image processing failed."
-                  )
-                );
-              }
-            },
-
-            "image/jpeg",
-            0.9
-          );
-        }
-      );
     }
 
+    catch (error) {
 
-    // =========================================
-    // LOAD IMAGE
-    // =========================================
-
-    function loadImage(file) {
-
-      return new Promise(
-        function (resolve, reject) {
-
-          const image =
-            new Image();
-
-          const imageURL =
-            URL.createObjectURL(file);
-
-          image.onload =
-            function () {
-
-              URL.revokeObjectURL(
-                imageURL
-              );
-
-              resolve(image);
-            };
-
-          image.onerror =
-            function () {
-
-              URL.revokeObjectURL(
-                imageURL
-              );
-
-              reject(
-                new Error(
-                  "Unable to read image."
-                )
-              );
-            };
-
-          image.src = imageURL;
-        }
+      console.warn(
+        "Automatic detection fallback:",
+        error
       );
     }
+  }
 
 
-    // =========================================
-    // STATUS
-    // =========================================
+  /*
+    Fallback keeps the activity usable
+    even if OpenCV hasn't loaded or a
+    particular photo cannot be detected.
+  */
 
-    function showStatus(
-      message,
-      isError = false
+  centerCropFlag();
+  await createBlobFromOutput();
+}
+
+
+/* =========================================
+   DETECT RECTANGLE + PERSPECTIVE CORRECT
+========================================= */
+
+function detectAndStraightenFlag() {
+
+  const src =
+    cv.imread(
+      workCanvas
+    );
+
+  const gray =
+    new cv.Mat();
+
+  const blurred =
+    new cv.Mat();
+
+  const edges =
+    new cv.Mat();
+
+  const contours =
+    new cv.MatVector();
+
+  const hierarchy =
+    new cv.Mat();
+
+
+  try {
+
+    cv.cvtColor(
+      src,
+      gray,
+      cv.COLOR_RGBA2GRAY
+    );
+
+    cv.GaussianBlur(
+      gray,
+      blurred,
+      new cv.Size(5,5),
+      0,
+      0,
+      cv.BORDER_DEFAULT
+    );
+
+    cv.Canny(
+      blurred,
+      edges,
+      45,
+      130
+    );
+
+
+    /*
+      Join nearby line segments.
+      This helps with printed borders
+      and the four registration corners.
+    */
+
+    const kernel =
+      cv.Mat.ones(
+        5,
+        5,
+        cv.CV_8U
+      );
+
+    cv.dilate(
+      edges,
+      edges,
+      kernel
+    );
+
+    kernel.delete();
+
+
+    cv.findContours(
+      edges,
+      contours,
+      hierarchy,
+      cv.RETR_LIST,
+      cv.CHAIN_APPROX_SIMPLE
+    );
+
+
+    const imageArea =
+      src.cols *
+      src.rows;
+
+    let bestPoints =
+      null;
+
+    let bestArea =
+      0;
+
+
+    for (
+      let i = 0;
+      i < contours.size();
+      i++
     ) {
 
-      statusMessage.textContent =
-        message;
+      const contour =
+        contours.get(i);
 
-      statusMessage.classList.toggle(
-        "error",
-        isError
+      const perimeter =
+        cv.arcLength(
+          contour,
+          true
+        );
+
+      const approx =
+        new cv.Mat();
+
+      cv.approxPolyDP(
+        contour,
+        approx,
+        0.025 * perimeter,
+        true
       );
+
+
+      if (
+        approx.rows === 4
+      ) {
+
+        const area =
+          Math.abs(
+            cv.contourArea(
+              approx
+            )
+          );
+
+        /*
+          Ignore tiny objects.
+
+          Also ignore nearly the entire
+          photograph because that is
+          commonly the edge of the photo
+          itself rather than the flag.
+        */
+
+        if (
+          area >
+          imageArea * .12 &&
+          area <
+          imageArea * .92 &&
+          area >
+          bestArea
+        ) {
+
+          const points =
+            [];
+
+          for (
+            let p = 0;
+            p < 4;
+            p++
+          ) {
+
+            points.push({
+              x:
+                approx.intPtr(p,0)[0],
+
+              y:
+                approx.intPtr(p,0)[1]
+            });
+          }
+
+
+          const ordered =
+            orderPoints(points);
+
+
+          const topWidth =
+            distance(
+              ordered.tl,
+              ordered.tr
+            );
+
+          const bottomWidth =
+            distance(
+              ordered.bl,
+              ordered.br
+            );
+
+          const leftHeight =
+            distance(
+              ordered.tl,
+              ordered.bl
+            );
+
+          const rightHeight =
+            distance(
+              ordered.tr,
+              ordered.br
+            );
+
+
+          const averageWidth =
+            (
+              topWidth +
+              bottomWidth
+            ) / 2;
+
+          const averageHeight =
+            (
+              leftHeight +
+              rightHeight
+            ) / 2;
+
+
+          const ratio =
+            averageWidth /
+            averageHeight;
+
+
+          /*
+            Our flag artwork is landscape.
+            This rejects square objects,
+            phone screens, etc.
+          */
+
+          if (
+            ratio > 1.15 &&
+            ratio < 2.5
+          ) {
+
+            bestArea =
+              area;
+
+            bestPoints =
+              ordered;
+          }
+        }
+
+      }
+
+      approx.delete();
+      contour.delete();
     }
 
-  </script>
+
+    if (!bestPoints) {
+
+      return false;
+    }
+
+
+    /*
+      Correct the perspective into the
+      same 1200 x 700 format used by
+      the stadium.
+    */
+
+    const OUTPUT_W =
+      1200;
+
+    const OUTPUT_H =
+      700;
+
+
+    const sourcePoints =
+      cv.matFromArray(
+        4,
+        1,
+        cv.CV_32FC2,
+        [
+
+          bestPoints.tl.x,
+          bestPoints.tl.y,
+
+          bestPoints.tr.x,
+          bestPoints.tr.y,
+
+          bestPoints.br.x,
+          bestPoints.br.y,
+
+          bestPoints.bl.x,
+          bestPoints.bl.y
+
+        ]
+      );
+
+
+    const destinationPoints =
+      cv.matFromArray(
+        4,
+        1,
+        cv.CV_32FC2,
+        [
+
+          0,
+          0,
+
+          OUTPUT_W,
+          0,
+
+          OUTPUT_W,
+          OUTPUT_H,
+
+          0,
+          OUTPUT_H
+
+        ]
+      );
+
+
+    const matrix =
+      cv.getPerspectiveTransform(
+        sourcePoints,
+        destinationPoints
+      );
+
+
+    const corrected =
+      new cv.Mat();
+
+
+    cv.warpPerspective(
+      src,
+      corrected,
+      matrix,
+      new cv.Size(
+        OUTPUT_W,
+        OUTPUT_H
+      ),
+      cv.INTER_LINEAR,
+      cv.BORDER_REPLICATE
+    );
+
+
+    /*
+      Trim a small amount around the edge
+      so printed registration marks and
+      border lines don't become part of
+      the final participant flag.
+    */
+
+    const trimX =
+      Math.round(
+        OUTPUT_W * .035
+      );
+
+    const trimY =
+      Math.round(
+        OUTPUT_H * .045
+      );
+
+
+    const trimmedRect =
+      new cv.Rect(
+        trimX,
+        trimY,
+        OUTPUT_W -
+          trimX * 2,
+        OUTPUT_H -
+          trimY * 2
+      );
+
+
+    const trimmed =
+      corrected.roi(
+        trimmedRect
+      );
+
+
+    const finalMat =
+      new cv.Mat();
+
+
+    cv.resize(
+      trimmed,
+      finalMat,
+      new cv.Size(
+        OUTPUT_W,
+        OUTPUT_H
+      ),
+      0,
+      0,
+      cv.INTER_AREA
+    );
+
+
+    outputCanvas.width =
+      OUTPUT_W;
+
+    outputCanvas.height =
+      OUTPUT_H;
+
+
+    cv.imshow(
+      outputCanvas,
+      finalMat
+    );
+
+
+    sourcePoints.delete();
+    destinationPoints.delete();
+    matrix.delete();
+    corrected.delete();
+    trimmed.delete();
+    finalMat.delete();
+
+
+    return true;
+
+  }
+
+  finally {
+
+    src.delete();
+    gray.delete();
+    blurred.delete();
+    edges.delete();
+    contours.delete();
+    hierarchy.delete();
+  }
+}
+
+
+/* =========================================
+   ORDER DETECTED CORNERS
+========================================= */
+
+function orderPoints(points) {
+
+  let tl =
+    points[0];
+
+  let tr =
+    points[0];
+
+  let br =
+    points[0];
+
+  let bl =
+    points[0];
+
+
+  let smallestSum =
+    Infinity;
+
+  let largestSum =
+    -Infinity;
+
+  let smallestDifference =
+    Infinity;
+
+  let largestDifference =
+    -Infinity;
+
+
+  points.forEach(
+    function(point) {
+
+      const sum =
+        point.x +
+        point.y;
+
+      const difference =
+        point.y -
+        point.x;
+
+
+      if (
+        sum <
+        smallestSum
+      ) {
+
+        smallestSum =
+          sum;
+
+        tl =
+          point;
+      }
+
+
+      if (
+        sum >
+        largestSum
+      ) {
+
+        largestSum =
+          sum;
+
+        br =
+          point;
+      }
+
+
+      if (
+        difference <
+        smallestDifference
+      ) {
+
+        smallestDifference =
+          difference;
+
+        tr =
+          point;
+      }
+
+
+      if (
+        difference >
+        largestDifference
+      ) {
+
+        largestDifference =
+          difference;
+
+        bl =
+          point;
+      }
+
+    }
+  );
+
+
+  return {
+    tl,
+    tr,
+    br,
+    bl
+  };
+}
+
+
+/* =========================================
+   DISTANCE
+========================================= */
+
+function distance(a,b) {
+
+  return Math.hypot(
+    a.x - b.x,
+    a.y - b.y
+  );
+}
+
+
+/* =========================================
+   FALLBACK CENTER CROP
+========================================= */
+
+function centerCropFlag() {
+
+  const TARGET_W =
+    1200;
+
+  const TARGET_H =
+    700;
+
+  const targetRatio =
+    TARGET_W /
+    TARGET_H;
+
+  const sourceRatio =
+    workCanvas.width /
+    workCanvas.height;
+
+
+  let sx =
+    0;
+
+  let sy =
+    0;
+
+  let sw =
+    workCanvas.width;
+
+  let sh =
+    workCanvas.height;
+
+
+  if (
+    sourceRatio >
+    targetRatio
+  ) {
+
+    sw =
+      workCanvas.height *
+      targetRatio;
+
+    sx =
+      (
+        workCanvas.width -
+        sw
+      ) / 2;
+
+  }
+
+  else {
+
+    sh =
+      workCanvas.width /
+      targetRatio;
+
+    sy =
+      (
+        workCanvas.height -
+        sh
+      ) / 2;
+  }
+
+
+  outputCanvas.width =
+    TARGET_W;
+
+  outputCanvas.height =
+    TARGET_H;
+
+
+  const ctx =
+    outputCanvas.getContext(
+      "2d"
+    );
+
+
+  ctx.drawImage(
+    workCanvas,
+
+    sx,
+    sy,
+    sw,
+    sh,
+
+    0,
+    0,
+    TARGET_W,
+    TARGET_H
+  );
+}
+
+
+/* =========================================
+   CREATE FINAL JPEG
+========================================= */
+
+function createBlobFromOutput() {
+
+  return new Promise(
+    function(resolve,reject) {
+
+      outputCanvas.toBlob(
+        function(blob) {
+
+          if (!blob) {
+
+            reject(
+              new Error(
+                "Unable to create processed image."
+              )
+            );
+
+            return;
+          }
+
+
+          processedBlob =
+            blob;
+
+
+          const previewURL =
+            URL.createObjectURL(
+              blob
+            );
+
+
+          if (
+            previewImage.dataset.url
+          ) {
+
+            URL.revokeObjectURL(
+              previewImage.dataset.url
+            );
+          }
+
+
+          previewImage.dataset.url =
+            previewURL;
+
+          previewImage.src =
+            previewURL;
+
+
+          resolve();
+
+        },
+
+        "image/jpeg",
+
+        .88
+      );
+    }
+  );
+}
+
+
+/* =========================================
+   SUBMIT
+========================================= */
+
+submitButton.addEventListener(
+  "click",
+  async function() {
+
+    if (!processedBlob) {
+
+      showError(
+        "Please photograph your flag first."
+      );
+
+      return;
+    }
+
+
+    resetMessages();
+
+
+    submitButton.disabled =
+      true;
+
+    submitButton.textContent =
+      "Submitting...";
+
+
+    try {
+
+      const fileName =
+        "flag-" +
+        Date.now() +
+        "-" +
+        Math.random()
+          .toString(36)
+          .slice(2,8) +
+        ".jpg";
+
+
+      const uploadResult =
+        await db
+          .storage
+          .from("flags")
+          .upload(
+            fileName,
+            processedBlob,
+            {
+              contentType:
+                "image/jpeg",
+
+              upsert:
+                false
+            }
+          );
+
+
+      if (
+        uploadResult.error
+      ) {
+
+        throw (
+          uploadResult.error
+        );
+      }
+
+
+      const cleanName =
+        nameInput.value
+          .trim()
+          .slice(0,40);
+
+
+      const insertResult =
+        await db
+          .from("submissions")
+          .insert({
+
+            name:
+              cleanName || null,
+
+            image_path:
+              fileName
+
+          });
+
+
+      if (
+        insertResult.error
+      ) {
+
+        /*
+          Remove the uploaded image if
+          the database record fails.
+        */
+
+        await db
+          .storage
+          .from("flags")
+          .remove([
+            fileName
+          ]);
+
+
+        throw (
+          insertResult.error
+        );
+      }
+
+
+      successMessage.style.display =
+        "block";
+
+
+      submitButton.style.display =
+        "none";
+
+
+      retryButton.style.display =
+        "none";
+
+
+      photoInput.value =
+        "";
+
+
+      successMessage.scrollIntoView({
+        behavior:
+          "smooth",
+
+        block:
+          "center"
+      });
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+
+      showError(
+        "Your flag could not be submitted. Please try again."
+      );
+
+
+      submitButton.disabled =
+        false;
+
+
+      submitButton.textContent =
+        "Submit My Flag";
+    }
+
+  }
+);
+
+
+/* =========================================
+   CHOOSE ANOTHER PHOTO
+========================================= */
+
+retryButton.addEventListener(
+  "click",
+  function() {
+
+    resetMessages();
+
+
+    photoInput.value =
+      "";
+
+
+    photoInput.click();
+  }
+);
+
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+function resetMessages() {
+
+  successMessage.style.display =
+    "none";
+
+  errorMessage.style.display =
+    "none";
+
+  errorMessage.textContent =
+    "";
+}
+
+
+function showError(message) {
+
+  errorMessage.textContent =
+    message;
+
+  errorMessage.style.display =
+    "block";
+}
+
+</script>
 
 </body>
 </html>
