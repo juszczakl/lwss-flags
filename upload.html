@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LWSS Flag Activity</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <main class="upload-page">
+
+    <section class="upload-card">
+
+      <div class="activity-label">LWSS FLAG ACTIVITY</div>
+
+      <h1>What will you contribute?</h1>
+
+      <p class="prompt">
+        What will you contribute to help LWSS reach its
+        <strong>60% proficiency goal?</strong>
+      </p>
+
+      <div class="instructions">
+        <strong>Finished decorating your flag?</strong>
+        <p>Take a photo of the entire flag with all four corner markers visible.</p>
+      </div>
+
+      <label for="name">First name <span>(optional)</span></label>
+      <input
+        type="text"
+        id="name"
+        maxlength="40"
+        placeholder="First name"
+      >
+
+      <label for="flagPhoto">Photograph your flag</label>
+
+      <input
+        type="file"
+        id="flagPhoto"
+        accept="image/*"
+        capture="environment"
+      >
+
+      <div id="previewArea" class="preview-area" hidden>
+        <p>Photo preview</p>
+        <img id="previewImage" alt="Preview of your flag">
+      </div>
+
+      <button id="submitButton" type="button" disabled>
+        Submit My Flag
+      </button>
+
+      <button id="retakeButton" class="secondary-button" type="button" hidden>
+        Retake / Choose Another Photo
+      </button>
+
+      <div id="statusMessage" class="status-message" aria-live="polite"></div>
+
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="upload.js"></script>
+</body>
+</html>
