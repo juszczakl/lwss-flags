@@ -1,76 +1,101 @@
+/* =========================================
+   LWSS FLAG ACTIVITY
+   Participant Upload Page
+   ========================================= */
+
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
-  min-height: 100vh;
+  min-height: 100%;
+}
+
+body {
   font-family: Arial, Helvetica, sans-serif;
   background: #eef3f7;
   color: #18324a;
 }
 
+
+/* PAGE */
+
 .upload-page {
   min-height: 100vh;
-  padding: 24px 16px;
+  padding: 28px 16px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
+
+/* MAIN CARD */
+
 .upload-card {
   width: 100%;
   max-width: 520px;
-  background: white;
+  background: #ffffff;
   border-radius: 20px;
-  padding: 28px 22px;
+  padding: 30px 24px;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
 }
 
+
+/* HEADER */
+
 .activity-label {
+  margin-bottom: 8px;
   text-align: center;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
   color: #b8892e;
-  margin-bottom: 8px;
 }
 
 h1 {
   margin: 0;
   text-align: center;
   font-size: 30px;
+  line-height: 1.15;
   color: #15375a;
 }
 
 .prompt {
+  margin: 14px 0 24px;
   text-align: center;
   font-size: 18px;
   line-height: 1.45;
-  margin: 14px 0 24px;
 }
 
 .prompt strong {
   color: #b8892e;
 }
 
+
+/* INSTRUCTIONS */
+
 .instructions {
+  margin-bottom: 24px;
+  padding: 16px;
   background: #edf4f8;
   border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 24px;
   text-align: center;
 }
 
 .instructions p {
   margin: 6px 0 0;
-  line-height: 1.4;
+  line-height: 1.45;
 }
+
+
+/* FORM */
 
 label {
   display: block;
-  font-weight: 700;
   margin: 18px 0 7px;
+  font-weight: 700;
 }
 
 label span {
@@ -83,17 +108,26 @@ input[type="text"] {
   padding: 14px;
   border: 1px solid #b9c4cc;
   border-radius: 10px;
+  background: #ffffff;
   font-size: 16px;
+}
+
+input[type="text"]:focus {
+  outline: 2px solid #15375a;
+  outline-offset: 2px;
 }
 
 input[type="file"] {
   width: 100%;
   padding: 12px;
-  background: #f5f7f9;
   border: 1px solid #cbd3d9;
   border-radius: 10px;
+  background: #f5f7f9;
   font-size: 15px;
 }
+
+
+/* PHOTO PREVIEW */
 
 .preview-area {
   margin-top: 22px;
@@ -101,6 +135,7 @@ input[type="file"] {
 }
 
 .preview-area p {
+  margin-bottom: 10px;
   font-weight: 700;
 }
 
@@ -109,10 +144,13 @@ input[type="file"] {
   width: 100%;
   max-height: 340px;
   object-fit: contain;
-  border-radius: 12px;
   border: 1px solid #d4dce2;
+  border-radius: 12px;
   background: #f5f5f5;
 }
+
+
+/* BUTTONS */
 
 button {
   width: 100%;
@@ -121,10 +159,14 @@ button {
   border: none;
   border-radius: 12px;
   background: #15375a;
-  color: white;
+  color: #ffffff;
   font-size: 17px;
   font-weight: 700;
   cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  opacity: 0.92;
 }
 
 button:disabled {
@@ -134,22 +176,39 @@ button:disabled {
 
 .secondary-button {
   margin-top: 10px;
-  background: white;
+  background: #ffffff;
   color: #15375a;
   border: 2px solid #15375a;
 }
 
+
+/* STATUS */
+
 .status-message {
+  min-height: 24px;
   margin-top: 20px;
   text-align: center;
   font-weight: 700;
   line-height: 1.4;
-  min-height: 24px;
+  color: #15375a;
 }
 
+.status-message[data-error="true"] {
+  color: #a32626;
+}
+
+
+/* MOBILE */
+
 @media (max-width: 480px) {
+
+  .upload-page {
+    padding: 18px 12px;
+  }
+
   .upload-card {
     padding: 24px 18px;
+    border-radius: 16px;
   }
 
   h1 {
