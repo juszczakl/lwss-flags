@@ -3,511 +3,534 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>LWSS Flag Stadium</title>
+<title>LWSS — Different roles. Diverse strengths.</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#c8e4f4;
 }
 
-html,
-body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+body{
+  perspective:1200px;
 }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+/* ===== SKY ===== */
+
+.sky{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 18% 12%,rgba(255,255,255,.85) 0 4%,transparent 11%),
+    radial-gradient(ellipse at 76% 10%,rgba(255,255,255,.7) 0 5%,transparent 13%),
+    linear-gradient(#78b9e1 0%,#cde8f5 27%,#dcecf3 34%,#cad4d8 34.2%);
+}
+
+/* ===== TITLE ===== */
+
+.title{
+  position:absolute;
+  z-index:100;
+  top:3.2%;
+  left:0;
+  width:100%;
+  text-align:center;
+  color:#183c60;
+}
+
+.title h1{
+  margin:0;
+  font-size:clamp(31px,3.6vw,62px);
+  font-weight:800;
+  letter-spacing:.2px;
+  text-shadow:0 2px 1px rgba(255,255,255,.5);
+}
+
+.counter{
+  display:inline-block;
+  margin-top:10px;
+  padding:7px 18px;
+  border-radius:25px;
+  background:rgba(20,55,84,.88);
+  color:white;
+  font-size:15px;
+  font-weight:700;
+}
+
+/* ===== STADIUM SHELL ===== */
+
+.stadium{
+  position:absolute;
+  left:0;
+  right:0;
+  top:17%;
+  bottom:0;
+  overflow:hidden;
+  background:#11191f;
+}
+
+/* roof shadow */
+
+.roof{
+  position:absolute;
+  z-index:12;
+  top:0;
+  left:-4%;
+  width:108%;
+  height:11%;
   background:
     linear-gradient(
       to bottom,
-      #78b8e4 0%,
-      #cce7f5 17%,
-      #e8edf0 17.2%,
-      #18232c 18%,
-      #0d151c 100%
+      #202a30 0%,
+      #0d1317 55%,
+      #05090b 100%
     );
-  color: #102c49;
+  clip-path:polygon(0 0,100% 0,93% 100%,7% 100%);
 }
 
-/* =========================
-   HEADER / SKY
-========================= */
-
-.sky {
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 18%;
-  overflow: hidden;
-  background:
-    radial-gradient(
-      ellipse at 15% 60%,
-      rgba(255,255,255,.8) 0 4%,
-      transparent 11%
-    ),
-    radial-gradient(
-      ellipse at 78% 35%,
-      rgba(255,255,255,.7) 0 5%,
-      transparent 12%
-    ),
-    linear-gradient(
-      #62a9dc,
-      #d7edf8
-    );
-}
-
-.header {
-  position: absolute;
-  top: 2.5%;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  z-index: 100;
-}
-
-.header h1 {
-  margin: 0;
-  color: #102d4a;
-  font-size: clamp(30px, 3.3vw, 60px);
-  font-weight: 800;
-  letter-spacing: .3px;
-}
-
-.ready {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 7px 17px;
-  border-radius: 30px;
-  color: white;
-  background: rgba(16,45,74,.88);
-  font-size: clamp(13px,1.1vw,18px);
-  font-weight: 700;
-}
-
-/* =========================
-   STADIUM LIGHTS
-========================= */
-
-.lights {
-  position: absolute;
-  top: 15.2%;
-  left: 2%;
-  width: 96%;
-  height: 4%;
-  z-index: 25;
-  border-radius: 50%;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0 1.2%,
-      #fff 1.25% 1.6%,
-      transparent 1.65% 2.5%
-    );
-  filter: drop-shadow(0 0 7px white);
-  opacity: .95;
-}
-
-/* =========================
-   STADIUM
-========================= */
-
-.stadium {
-  position: absolute;
-  left: 2%;
-  right: 2%;
-  top: 17%;
-  bottom: 1%;
-  overflow: hidden;
-  background: #131b22;
-  border-radius: 42% 42% 5% 5% / 12% 12% 3% 3%;
+.lights{
+  position:absolute;
+  z-index:14;
+  top:8.7%;
+  left:8%;
+  width:84%;
+  height:2px;
+  background:white;
   box-shadow:
-    inset 0 15px 35px rgba(0,0,0,.7),
-    0 15px 40px rgba(0,0,0,.5);
+    0 0 4px white,
+    0 0 12px white,
+    0 0 22px rgba(255,255,255,.7);
 }
 
-/* =========================
-   BACK STAND
-========================= */
+/* ===== BACK SEATING ===== */
 
-.back-stand {
-  position: absolute;
-  top: 4%;
-  left: 13%;
-  width: 74%;
-  height: 38%;
-  clip-path: polygon(
-    3% 0,
-    97% 0,
+.back-upper{
+  position:absolute;
+  z-index:3;
+  left:8%;
+  top:9%;
+  width:84%;
+  height:24%;
+
+  clip-path:polygon(
+    4% 0,
+    96% 0,
     100% 100%,
     0 100%
   );
+
   background:
     repeating-linear-gradient(
       to bottom,
-      #252f37 0 9px,
-      #46535c 10px 14px,
-      #161e24 15px 24px
+      #252d32 0 7px,
+      #3d484f 8px 11px,
+      #171e22 12px 19px
     );
-  border-bottom: 6px solid #78848b;
-  z-index: 3;
 }
 
-/* =========================
-   SIDE STANDS
-========================= */
+.back-middle{
+  position:absolute;
+  z-index:4;
+  left:11%;
+  top:29%;
+  width:78%;
+  height:18%;
 
-.left-stand {
-  position: absolute;
-  left: 0;
-  top: 15%;
-  width: 28%;
-  height: 75%;
-  clip-path: polygon(
+  clip-path:polygon(
+    0 0,
+    100% 0,
+    94% 100%,
+    6% 100%
+  );
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #303a40 0 8px,
+      #4c575d 9px 12px,
+      #192126 13px 22px
+    );
+
+  border-top:5px solid #747e82;
+}
+
+/* ===== SIDE SEATING ===== */
+
+.left-upper{
+  position:absolute;
+  z-index:5;
+  left:0;
+  top:12%;
+  width:27%;
+  height:58%;
+
+  clip-path:polygon(
     0 0,
     100% 25%,
-    75% 100%,
-    0 100%
+    78% 100%,
+    0 92%
   );
+
   background:
     repeating-linear-gradient(
-      170deg,
-      #1c252c 0 13px,
-      #47535b 14px 19px,
-      #11191f 20px 31px
+      164deg,
+      #20282d 0 10px,
+      #465158 11px 15px,
+      #141a1e 16px 26px
     );
-  z-index: 4;
 }
 
-.right-stand {
-  position: absolute;
-  right: 0;
-  top: 15%;
-  width: 28%;
-  height: 75%;
-  clip-path: polygon(
+.right-upper{
+  position:absolute;
+  z-index:5;
+  right:0;
+  top:12%;
+  width:27%;
+  height:58%;
+
+  clip-path:polygon(
     0 25%,
     100% 0,
-    100% 100%,
-    25% 100%
+    100% 92%,
+    22% 100%
   );
+
   background:
     repeating-linear-gradient(
-      10deg,
-      #1c252c 0 13px,
-      #47535b 14px 19px,
-      #11191f 20px 31px
+      16deg,
+      #20282d 0 10px,
+      #465158 11px 15px,
+      #141a1e 16px 26px
     );
-  z-index: 4;
 }
 
-/* =========================
-   FIELD
-========================= */
+.left-lower{
+  position:absolute;
+  z-index:8;
+  left:0;
+  bottom:0;
+  width:26%;
+  height:51%;
 
-.field {
-  position: absolute;
-  left: 22%;
-  top: 38%;
-  width: 56%;
-  height: 48%;
-  z-index: 6;
-  overflow: hidden;
+  clip-path:polygon(
+    0 0,
+    100% 17%,
+    72% 100%,
+    0 100%
+  );
 
-  clip-path: polygon(
-    12% 0,
-    88% 0,
+  background:
+    repeating-linear-gradient(
+      165deg,
+      #293238 0 13px,
+      #59636a 14px 18px,
+      #171e22 19px 32px
+    );
+}
+
+.right-lower{
+  position:absolute;
+  z-index:8;
+  right:0;
+  bottom:0;
+  width:26%;
+  height:51%;
+
+  clip-path:polygon(
+    0 17%,
+    100% 0,
+    100% 100%,
+    28% 100%
+  );
+
+  background:
+    repeating-linear-gradient(
+      15deg,
+      #293238 0 13px,
+      #59636a 14px 18px,
+      #171e22 19px 32px
+    );
+}
+
+/* ===== FIELD ===== */
+
+.pitch-wrap{
+  position:absolute;
+  z-index:6;
+  left:18%;
+  top:43%;
+  width:64%;
+  height:57%;
+
+  clip-path:polygon(
+    22% 0,
+    78% 0,
     100% 100%,
     0 100%
   );
+
+  filter:drop-shadow(0 8px 12px rgba(0,0,0,.55));
+}
+
+.pitch{
+  position:absolute;
+  inset:0;
 
   background:
     repeating-linear-gradient(
       90deg,
-      #5d9c3f 0%,
-      #5d9c3f 10%,
-      #70aa4d 10%,
-      #70aa4d 20%
+      #56963e 0%,
+      #56963e 10%,
+      #6aa84a 10%,
+      #6aa84a 20%
     );
+}
 
+.pitch-border{
+  position:absolute;
+  left:6%;
+  right:6%;
+  top:6%;
+  bottom:5%;
+
+  clip-path:polygon(
+    18% 0,
+    82% 0,
+    100% 100%,
+    0 100%
+  );
+
+  border:3px solid rgba(255,255,255,.95);
+}
+
+.half-line{
+  position:absolute;
+  left:50%;
+  top:5%;
+  height:91%;
+  width:2px;
+  background:white;
+  transform:rotate(0deg);
+}
+
+.center-circle{
+  position:absolute;
+  left:42%;
+  top:39%;
+  width:16%;
+  aspect-ratio:1;
+  border:2px solid white;
+  border-radius:50%;
+}
+
+.center-dot{
+  position:absolute;
+  left:49.7%;
+  top:49%;
+  width:5px;
+  height:5px;
+  background:white;
+  border-radius:50%;
+}
+
+/* ===== FRONT RAIL ===== */
+
+.front-rail{
+  position:absolute;
+  z-index:60;
+  left:2%;
+  right:2%;
+  bottom:3%;
+  height:10px;
+  border-radius:4px;
+  background:#aeb7bb;
   box-shadow:
-    0 0 0 3px white,
-    0 15px 30px rgba(0,0,0,.45);
+    0 3px 4px rgba(0,0,0,.55),
+    inset 0 2px 1px rgba(255,255,255,.7);
 }
 
-.field-lines {
-  position: absolute;
-  inset: 7% 7%;
-  border: 2px solid rgba(255,255,255,.9);
+.front-rail::before{
+  content:"";
+  position:absolute;
+  left:5%;
+  top:-70px;
+  width:7px;
+  height:75px;
+  background:#8f999e;
+  box-shadow:
+    18vw 0 #8f999e,
+    36vw 0 #8f999e,
+    54vw 0 #8f999e,
+    72vw 0 #8f999e,
+    88vw 0 #8f999e;
 }
 
-.field-lines::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 0;
-  height: 100%;
-  border-left: 2px solid white;
+/* ===== FLAGS ===== */
+
+#flags{
+  position:absolute;
+  z-index:30;
+  inset:0;
+  pointer-events:none;
 }
 
-.field-lines::after {
-  content: "";
-  position: absolute;
-  width: 17%;
-  aspect-ratio: 1;
-  left: 41.5%;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 2px solid white;
-  border-radius: 50%;
-}
+.flag{
+  position:absolute;
+  opacity:0;
 
-/* =========================
-   FRONT STAND / RAILING
-========================= */
-
-.front-stand {
-  position: absolute;
-  left: 5%;
-  bottom: 0;
-  width: 90%;
-  height: 17%;
-  z-index: 12;
-
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      #313d45 0 13px,
-      #151d23 14px 28px
-    );
-
-  border-top: 6px solid #7b878d;
-}
-
-.front-rail {
-  position: absolute;
-  left: 3%;
-  right: 3%;
-  bottom: 15%;
-  height: 6px;
-  background: #aeb6ba;
-  z-index: 40;
-  box-shadow: 0 2px 4px rgba(0,0,0,.6);
-}
-
-/* =========================
-   FLAG LAYER
-========================= */
-
-.flags-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 20;
-  pointer-events: none;
-}
-
-.flag {
-  position: absolute;
-  opacity: 0;
   transform:
-    translateY(65px)
+    translateY(55px)
     scale(.65);
-  transform-origin: bottom left;
+
+  transform-origin:left bottom;
 
   transition:
-    opacity .55s ease,
-    transform .9s cubic-bezier(.2,.9,.25,1.15);
+    opacity .45s ease,
+    transform .85s cubic-bezier(.2,.9,.2,1.15);
 }
 
-.flag.revealed {
-  opacity: 1;
+.flag.show{
+  opacity:1;
+
   transform:
     translateY(0)
     scale(1);
 }
 
-.flag-pole {
-  position: absolute;
-  left: -4px;
-  top: -4px;
-  width: 3px;
-  height: calc(100% + 18px);
-  background: #c5c9ca;
-  border-radius: 2px;
-  box-shadow: 1px 1px 3px rgba(0,0,0,.7);
+.pole{
+  position:absolute;
+  left:-4px;
+  top:-5px;
+  width:3px;
+  height:calc(100% + 18px);
+  background:#d5d9db;
+  box-shadow:1px 1px 2px rgba(0,0,0,.7);
 }
 
-.flag-art {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: white;
-  border: 2px solid rgba(230,230,230,.9);
-  box-shadow:
-    2px 4px 7px rgba(0,0,0,.55);
-  transform-origin: left center;
+.art{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:white;
+  border:2px solid white;
+  box-shadow:2px 4px 7px rgba(0,0,0,.6);
+  transform-origin:left center;
 }
 
-.flag-art img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.art img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
 
-.flag.revealed .flag-art {
-  animation:
-    flagWave 3.8s ease-in-out infinite;
+.flag.show .art{
+  animation:wave 3.6s ease-in-out infinite;
 }
 
-@keyframes flagWave {
-
-  0% {
+@keyframes wave{
+  0%,100%{
     transform:
-      perspective(600px)
-      rotateY(0deg)
-      skewY(0deg);
+      perspective(500px)
+      rotateY(0deg);
   }
 
-  25% {
+  25%{
     transform:
-      perspective(600px)
-      rotateY(-4deg)
+      perspective(500px)
+      rotateY(-5deg)
       skewY(.5deg);
   }
 
-  50% {
+  50%{
     transform:
-      perspective(600px)
+      perspective(500px)
       rotateY(2deg)
       skewY(-.3deg);
   }
 
-  75% {
+  75%{
     transform:
-      perspective(600px)
-      rotateY(-2deg)
-      skewY(.3deg);
-  }
-
-  100% {
-    transform:
-      perspective(600px)
-      rotateY(0deg)
-      skewY(0deg);
+      perspective(500px)
+      rotateY(-2deg);
   }
 }
 
-/* =========================
-   CONTROLS
-========================= */
+/* ===== CONTROLS ===== */
 
-.controls {
-  position: fixed;
-  right: 14px;
-  bottom: 12px;
-  z-index: 200;
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 7px;
-
-  max-width: 700px;
-
-  padding: 9px;
-
-  background: rgba(8,20,30,.88);
-  border-radius: 12px;
-
-  box-shadow:
-    0 5px 20px rgba(0,0,0,.4);
+.controls{
+  position:fixed;
+  z-index:500;
+  right:12px;
+  bottom:12px;
+  display:flex;
+  gap:7px;
+  padding:8px;
+  border-radius:11px;
+  background:rgba(7,18,27,.88);
 }
 
-.controls button {
-  border: 0;
-  border-radius: 8px;
-  padding: 10px 13px;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 13px;
+button{
+  border:0;
+  border-radius:7px;
+  padding:9px 12px;
+  font-weight:700;
+  cursor:pointer;
 }
 
-.gold {
-  background: #d2aa4d;
-  color: #172a3a;
+.reveal{
+  background:#d6ac4d;
+  color:#172b3d;
 }
 
-.light {
-  background: #eef2f4;
-  color: #18324a;
+.other{
+  background:#f0f3f4;
+  color:#17334c;
 }
 
-.status {
-  position: fixed;
-  left: 12px;
-  bottom: 10px;
-  z-index: 200;
-  color: white;
-  background: rgba(5,15,23,.8);
-  border-radius: 8px;
-  padding: 7px 11px;
-  font-size: 12px;
+.status{
+  position:fixed;
+  z-index:500;
+  left:12px;
+  bottom:12px;
+  padding:7px 10px;
+  border-radius:7px;
+  background:rgba(5,15,22,.8);
+  color:white;
+  font-size:12px;
 }
 
-/* =========================
-   FINAL MESSAGE OVERLAY
-========================= */
+/* ===== FINAL MESSAGE ===== */
 
-.final-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 500;
-
-  display: none;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(7,20,31,.75);
+.final{
+  position:fixed;
+  z-index:1000;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(7,19,29,.82);
 }
 
-.final-card {
-  width: min(800px,85vw);
-  min-height: 220px;
-  padding: 40px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  border-radius: 22px;
-  background: rgba(255,255,255,.96);
-
-  color: #15334f;
-  font-size: clamp(25px,3vw,48px);
-  font-weight: 800;
-
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.45);
-}
-
-@media (max-width: 800px) {
-
-  .back-stand {
-    left: 8%;
-    width: 84%;
-  }
-
-  .field {
-    left: 18%;
-    width: 64%;
-  }
-
+.final-box{
+  width:min(850px,85vw);
+  min-height:230px;
+  border-radius:20px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px;
+  color:#183b5c;
+  font-size:34px;
+  font-weight:800;
+  text-align:center;
 }
 </style>
 </head>
@@ -516,106 +539,84 @@ body {
 
 <div class="sky"></div>
 
-<header class="header">
+<div class="title">
+  <h1>Different roles. Diverse strengths.</h1>
 
-  <h1>
-    Different roles. Diverse strengths.
-  </h1>
-
-  <div class="ready">
+  <div class="counter">
     Flags Ready:
-    <span id="flagCount">0</span>
+    <span id="count">0</span>
   </div>
-
-</header>
-
-<div class="lights"></div>
+</div>
 
 <main class="stadium">
 
-  <div class="back-stand"></div>
+  <div class="roof"></div>
+  <div class="lights"></div>
 
-  <div class="left-stand"></div>
+  <div class="back-upper"></div>
+  <div class="back-middle"></div>
 
-  <div class="right-stand"></div>
+  <div class="left-upper"></div>
+  <div class="right-upper"></div>
 
-  <div class="field">
-    <div class="field-lines"></div>
+  <div class="left-lower"></div>
+  <div class="right-lower"></div>
+
+  <div class="pitch-wrap">
+
+    <div class="pitch"></div>
+
+    <div class="pitch-border"></div>
+
+    <div class="half-line"></div>
+
+    <div class="center-circle"></div>
+
+    <div class="center-dot"></div>
+
   </div>
 
-  <div class="front-stand"></div>
-
-  <div
-    id="flagsLayer"
-    class="flags-layer">
-  </div>
+  <div id="flags"></div>
 
   <div class="front-rail"></div>
 
 </main>
 
-
-<div
-  id="status"
-  class="status">
+<div id="status" class="status">
   Connecting...
 </div>
 
+<div id="controls" class="controls">
 
-<div
-  id="controls"
-  class="controls">
-
-  <button
-    id="startButton"
-    class="light">
+  <button id="start" class="other">
     Start New Activity
   </button>
 
-  <button
-    id="refreshButton"
-    class="light">
+  <button id="refresh" class="other">
     Refresh
   </button>
 
-  <button
-    id="revealButton"
-    class="gold">
+  <button id="reveal" class="reveal">
     Reveal Flags
   </button>
 
-  <button
-    id="finalButton"
-    class="light">
+  <button id="finalButton" class="other">
     Final Message
   </button>
 
-  <button
-    id="resetButton"
-    class="light">
+  <button id="reset" class="other">
     Reset Display
   </button>
 
-  <button
-    id="hideButton"
-    class="light">
+  <button id="hide" class="other">
     Hide Controls
   </button>
 
 </div>
 
-
-<div
-  id="finalOverlay"
-  class="final-overlay">
-
-  <div
-    id="finalCard"
-    class="final-card">
-  </div>
-
+<div id="final" class="final">
+  <div id="finalBox" class="final-box"></div>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -631,7 +632,7 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   "sb_publishable_4lDV3RGlIGFgNVHiTUvhhg_Gk0UFP-8";
 
-const supabaseClient =
+const db =
   window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
@@ -639,246 +640,168 @@ const supabaseClient =
 
 
 /* =========================
-   ELEMENTS
+   STATE
 ========================= */
 
-const flagsLayer =
-  document.getElementById("flagsLayer");
+let submissions = [];
+let revealed = false;
 
-const flagCount =
-  document.getElementById("flagCount");
+const flagLayer =
+  document.getElementById("flags");
+
+const count =
+  document.getElementById("count");
 
 const statusBox =
   document.getElementById("status");
 
-const controls =
-  document.getElementById("controls");
-
-const revealButton =
-  document.getElementById("revealButton");
-
-const refreshButton =
-  document.getElementById("refreshButton");
-
-const startButton =
-  document.getElementById("startButton");
-
-const finalButton =
-  document.getElementById("finalButton");
-
-const resetButton =
-  document.getElementById("resetButton");
-
-const hideButton =
-  document.getElementById("hideButton");
-
-const finalOverlay =
-  document.getElementById("finalOverlay");
-
-const finalCard =
-  document.getElementById("finalCard");
-
-
-let submissions = [];
-
-let revealed = false;
-
 
 /* =========================
-   FLAG POSITIONS
+   STADIUM FLAG POSITIONS
 ========================= */
 
 const positions = [];
 
 
-/* BACK STAND — 42 FLAGS */
+/* BACK UPPER — 24 */
 
-const backRows = [
-  {
-    count: 12,
-    y: 8,
-    start: 19,
-    end: 75,
-    width: 5.7,
-    height: 7.3
-  },
+[
+  {count:8,y:13,start:25,end:70,w:5.8,h:7},
+  {count:8,y:21,start:23,end:72,w:6.2,h:7.5},
+  {count:8,y:29,start:21,end:74,w:6.6,h:8}
+]
+.forEach(row => {
 
-  {
-    count: 11,
-    y: 16,
-    start: 21,
-    end: 74,
-    width: 6,
-    height: 7.6
-  },
+  for(let i=0;i<row.count;i++){
 
-  {
-    count: 10,
-    y: 24,
-    start: 23,
-    end: 72,
-    width: 6.3,
-    height: 8
-  },
+    const p =
+      i/(row.count-1);
 
-  {
-    count: 9,
-    y: 32,
-    start: 25,
-    end: 70,
-    width: 6.7,
-    height: 8.4
+    positions.push({
+      x:row.start +
+        (row.end-row.start)*p,
+
+      y:row.y,
+
+      w:row.w,
+      h:row.h
+    });
   }
-];
+});
 
 
-backRows.forEach(
-  function(row) {
+/* BACK LOWER — 15 */
 
-    for (
-      let i = 0;
-      i < row.count;
-      i++
-    ) {
+[
+  {count:8,y:37,start:22,end:73,w:7,h:8.5},
+  {count:7,y:45,start:25,end:70,w:7.5,h:9}
+]
+.forEach(row => {
 
-      const progress =
-        row.count === 1
-          ? 0
-          : i / (row.count - 1);
+  for(let i=0;i<row.count;i++){
 
-      positions.push({
+    const p =
+      i/(row.count-1);
 
-        x:
-          row.start +
-          (
-            row.end -
-            row.start
-          ) *
-          progress,
+    positions.push({
+      x:row.start +
+        (row.end-row.start)*p,
 
-        y: row.y,
+      y:row.y,
 
-        width: row.width,
-
-        height: row.height,
-
-        layer: 20
-      });
-    }
+      w:row.w,
+      h:row.h
+    });
   }
-);
+});
 
 
-/* LEFT STAND — 13 FLAGS */
+/* LEFT STANDS — 18 */
 
-for (
-  let i = 0;
-  i < 13;
-  i++
-) {
+[
+  {x:4,y:25},
+  {x:10,y:28},
+  {x:16,y:31},
 
-  const row =
-    Math.floor(i / 3);
+  {x:3,y:36},
+  {x:10,y:39},
+  {x:17,y:42},
 
-  const column =
-    i % 3;
+  {x:2,y:48},
+  {x:9,y:51},
+  {x:16,y:54},
 
-  positions.push({
+  {x:2,y:60},
+  {x:9,y:63},
+  {x:16,y:66},
 
-    x:
-      3 +
-      column * 6 +
-      row * 1.1,
+  {x:2,y:72},
+  {x:9,y:75},
+  {x:16,y:78},
 
-    y:
-      25 +
-      row * 12,
-
-    width:
-      7.2 +
-      row * .5,
-
-    height:
-      9 +
-      row * .5,
-
-    layer:
-      30 + row
-  });
-}
-
-
-/* RIGHT STAND — 13 FLAGS */
-
-for (
-  let i = 0;
-  i < 13;
-  i++
-) {
-
-  const row =
-    Math.floor(i / 3);
-
-  const column =
-    i % 3;
+  {x:3,y:84},
+  {x:10,y:86},
+  {x:17,y:88}
+]
+.forEach((p,i)=>{
 
   positions.push({
-
-    x:
-      79 +
-      column * 6 -
-      row * 1.1,
-
-    y:
-      25 +
-      row * 12,
-
-    width:
-      7.2 +
-      row * .5,
-
-    height:
-      9 +
-      row * .5,
-
-    layer:
-      30 + row
+    x:p.x,
+    y:p.y,
+    w:7.5 + i*.08,
+    h:9 + i*.06
   });
-}
+});
 
 
-/* FRONT STAND — 7 FLAGS */
+/* RIGHT STANDS — 18 */
 
-for (
-  let i = 0;
-  i < 7;
-  i++
-) {
+[
+  {x:88,y:25},
+  {x:82,y:28},
+  {x:76,y:31},
+
+  {x:89,y:36},
+  {x:82,y:39},
+  {x:75,y:42},
+
+  {x:90,y:48},
+  {x:83,y:51},
+  {x:76,y:54},
+
+  {x:90,y:60},
+  {x:83,y:63},
+  {x:76,y:66},
+
+  {x:90,y:72},
+  {x:83,y:75},
+  {x:76,y:78},
+
+  {x:89,y:84},
+  {x:82,y:86},
+  {x:75,y:88}
+]
+.forEach((p,i)=>{
 
   positions.push({
-
-    x:
-      13 +
-      i * 11.5,
-
-    y: 84,
-
-    width: 9.5,
-
-    height: 11,
-
-    layer: 60
+    x:p.x,
+    y:p.y,
+    w:7.5 + i*.08,
+    h:9 + i*.06
   });
-}
+});
+
+
+/* TOTAL = 75 */
 
 
 /* =========================
-   IMAGE URL
+   PUBLIC IMAGE URL
 ========================= */
 
-function getFlagURL(path) {
+function imageURL(path){
 
-  return supabaseClient
+  return db
     .storage
     .from("flags")
     .getPublicUrl(path)
@@ -888,29 +811,27 @@ function getFlagURL(path) {
 
 
 /* =========================
-   LOAD FLAGS
+   LOAD
 ========================= */
 
-async function loadFlags() {
+async function loadFlags(){
 
   statusBox.textContent =
     "Loading flags...";
 
   const result =
-    await supabaseClient
+    await db
       .from("submissions")
       .select(
         "id,created_at,name,image_path"
       )
       .order(
         "created_at",
-        {
-          ascending: true
-        }
+        {ascending:true}
       );
 
 
-  if (result.error) {
+  if(result.error){
 
     console.error(result.error);
 
@@ -925,11 +846,11 @@ async function loadFlags() {
     result.data || [];
 
 
-  flagCount.textContent =
+  count.textContent =
     submissions.length;
 
 
-  renderFlags();
+  drawFlags();
 
 
   statusBox.textContent =
@@ -938,29 +859,31 @@ async function loadFlags() {
 
 
 /* =========================
-   DRAW FLAGS
+   DRAW
 ========================= */
 
-function renderFlags() {
+function drawFlags(){
 
-  flagsLayer.innerHTML = "";
+  flagLayer.innerHTML = "";
 
 
   submissions
     .slice(0,75)
     .forEach(
-      function(submission,index) {
+      (submission,index)=>{
 
-        const position =
+        const p =
           positions[index];
 
-        if (!position) {
+        if(!p){
           return;
         }
 
 
         const flag =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
 
 
         flag.className =
@@ -968,28 +891,25 @@ function renderFlags() {
 
 
         flag.style.left =
-          position.x + "%";
+          p.x + "%";
 
         flag.style.top =
-          position.y + "%";
+          p.y + "%";
 
         flag.style.width =
-          position.width + "%";
+          p.w + "%";
 
         flag.style.height =
-          position.height + "%";
-
-        flag.style.zIndex =
-          position.layer;
+          p.h + "%";
 
 
         flag.innerHTML = `
-          <div class="flag-pole"></div>
+          <div class="pole"></div>
 
-          <div class="flag-art">
+          <div class="art">
 
             <img
-              src="${getFlagURL(
+              src="${imageURL(
                 submission.image_path
               )}"
               alt="Participant flag"
@@ -999,20 +919,18 @@ function renderFlags() {
         `;
 
 
-        flagsLayer.appendChild(
+        flagLayer.appendChild(
           flag
         );
 
 
-        if (revealed) {
+        if(revealed){
 
           requestAnimationFrame(
-            function() {
-
+            ()=>{
               flag.classList.add(
-                "revealed"
+                "show"
               );
-
             }
           );
         }
@@ -1025,208 +943,178 @@ function renderFlags() {
    REVEAL
 ========================= */
 
-function revealFlags() {
+function revealFlags(){
 
   revealed = true;
-
-
-  const flags =
-    document.querySelectorAll(
-      ".flag"
-    );
-
-
-  flags.forEach(
-    function(flag,index) {
-
-      setTimeout(
-        function() {
-
-          flag.classList.add(
-            "revealed"
-          );
-
-        },
-
-        index * 90
-      );
-    }
-  );
-
-
-  revealButton.textContent =
-    "Flags Revealed";
-}
-
-
-/* =========================
-   RESET DISPLAY
-========================= */
-
-function resetDisplay() {
-
-  revealed = false;
-
-  finalOverlay.style.display =
-    "none";
 
 
   document
     .querySelectorAll(".flag")
     .forEach(
-      function(flag) {
+      (flag,index)=>{
 
-        flag.classList.remove(
-          "revealed"
+        setTimeout(
+          ()=>{
+            flag.classList.add(
+              "show"
+            );
+          },
+
+          index*85
         );
       }
     );
 
 
-  revealButton.textContent =
-    "Reveal Flags";
+  document.getElementById(
+    "reveal"
+  ).textContent =
+    "Flags Revealed";
 }
 
 
 /* =========================
-   START NEW ACTIVITY
+   RESET
 ========================= */
 
-function startNewActivity() {
+function resetDisplay(){
 
-  resetDisplay();
-
-  loadFlags();
-}
+  revealed = false;
 
 
-/* =========================
-   FINAL MESSAGE
-
-   Intentionally blank until wording
-   is approved.
-========================= */
-
-function showFinalMessage() {
-
-  finalCard.textContent =
-    "Final message will go here.";
-
-  finalOverlay.style.display =
-    "flex";
-}
-
-
-/* =========================
-   REALTIME
-========================= */
-
-supabaseClient
-  .channel(
-    "lwss-live-flags"
-  )
-
-  .on(
-    "postgres_changes",
-
-    {
-      event: "INSERT",
-      schema: "public",
-      table: "submissions"
-    },
-
-    function(payload) {
-
-      const exists =
-        submissions.some(
-          function(item) {
-
-            return (
-              item.id ===
-              payload.new.id
-            );
-          }
+  document
+    .querySelectorAll(".flag")
+    .forEach(
+      flag=>{
+        flag.classList.remove(
+          "show"
         );
-
-
-      if (exists) {
-        return;
       }
+    );
 
 
-      submissions.push(
-        payload.new
+  document.getElementById(
+    "reveal"
+  ).textContent =
+    "Reveal Flags";
+
+
+  document.getElementById(
+    "final"
+  ).style.display =
+    "none";
+}
+
+
+/* =========================
+   LIVE SUBMISSIONS
+========================= */
+
+db
+.channel("lwss-live")
+.on(
+  "postgres_changes",
+
+  {
+    event:"INSERT",
+    schema:"public",
+    table:"submissions"
+  },
+
+  payload=>{
+
+    const exists =
+      submissions.some(
+        item=>
+          item.id ===
+          payload.new.id
       );
 
 
-      flagCount.textContent =
-        submissions.length;
-
-
-      renderFlags();
-
-
-      if (revealed) {
-
-        statusBox.textContent =
-          "New flag added!";
-
-
-        setTimeout(
-          function() {
-
-            statusBox.textContent =
-              "Connected";
-
-          },
-          1800
-        );
-      }
+    if(exists){
+      return;
     }
-  )
 
-  .subscribe();
+
+    submissions.push(
+      payload.new
+    );
+
+
+    count.textContent =
+      submissions.length;
+
+
+    drawFlags();
+
+
+    if(revealed){
+
+      statusBox.textContent =
+        "New flag added!";
+
+
+      setTimeout(
+        ()=>{
+          statusBox.textContent =
+            "Connected";
+        },
+        1500
+      );
+    }
+  }
+)
+.subscribe();
 
 
 /* =========================
    BUTTONS
 ========================= */
 
-revealButton.addEventListener(
+document
+.getElementById("reveal")
+.addEventListener(
   "click",
   revealFlags
 );
 
 
-refreshButton.addEventListener(
+document
+.getElementById("refresh")
+.addEventListener(
   "click",
   loadFlags
 );
 
 
-resetButton.addEventListener(
+document
+.getElementById("reset")
+.addEventListener(
   "click",
   resetDisplay
 );
 
 
-startButton.addEventListener(
+document
+.getElementById("start")
+.addEventListener(
   "click",
-  startNewActivity
+  ()=>{
+    resetDisplay();
+    loadFlags();
+  }
 );
 
 
-finalButton.addEventListener(
+document
+.getElementById("hide")
+.addEventListener(
   "click",
-  showFinalMessage
-);
+  ()=>{
 
-
-hideButton.addEventListener(
-  "click",
-  function() {
-
-    controls.style.display =
+    document.getElementById(
+      "controls"
+    ).style.display =
       "none";
 
     statusBox.style.display =
@@ -1235,11 +1123,40 @@ hideButton.addEventListener(
 );
 
 
-finalOverlay.addEventListener(
+document
+.getElementById(
+  "finalButton"
+)
+.addEventListener(
   "click",
-  function() {
+  ()=>{
 
-    finalOverlay.style.display =
+    /*
+      Final wording has NOT
+      been chosen yet.
+    */
+
+    document.getElementById(
+      "finalBox"
+    ).textContent =
+      "";
+
+    document.getElementById(
+      "final"
+    ).style.display =
+      "flex";
+  }
+);
+
+
+document
+.getElementById("final")
+.addEventListener(
+  "click",
+  ()=>{
+    document.getElementById(
+      "final"
+    ).style.display =
       "none";
   }
 );
