@@ -7,7 +7,6 @@
 <title>LWSS Flag Stadium</title>
 
 <style>
-
 * { box-sizing:border-box; }
 
 html,body {
@@ -23,10 +22,7 @@ html,body {
   position:relative;
   width:100vw;
   height:100vh;
-
-  background-image:
-    url("ChatGPT Image Sep 28, 2026, 03_14_50 PM.png");
-
+  background-image:url("ChatGPT Image Sep 28, 2026, 03_14_50 PM.png");
   background-size:cover;
   background-position:center center;
   background-repeat:no-repeat;
@@ -75,7 +71,6 @@ html,body {
   opacity:0;
   transform:translateY(45px) scale(.7);
   transform-origin:center bottom;
-
   transition:
     opacity .45s ease,
     transform .85s cubic-bezier(.2,.9,.2,1.15);
@@ -120,33 +115,20 @@ html,body {
 }
 
 @keyframes gentleWave {
-
   0%,100% {
-    transform:
-      perspective(500px)
-      rotateY(0deg)
-      skewY(0deg);
+    transform:perspective(500px) rotateY(0deg) skewY(0deg);
   }
 
   25% {
-    transform:
-      perspective(500px)
-      rotateY(-5deg)
-      skewY(.45deg);
+    transform:perspective(500px) rotateY(-5deg) skewY(.45deg);
   }
 
   50% {
-    transform:
-      perspective(500px)
-      rotateY(2deg)
-      skewY(-.3deg);
+    transform:perspective(500px) rotateY(2deg) skewY(-.3deg);
   }
 
   75% {
-    transform:
-      perspective(500px)
-      rotateY(-2deg)
-      skewY(.2deg);
+    transform:perspective(500px) rotateY(-2deg) skewY(.2deg);
   }
 }
 
@@ -205,7 +187,7 @@ html,body {
 }
 
 .final-card {
-  width:min(850px,86vw);
+  width:min(900px,86vw);
   min-height:230px;
   padding:40px;
   border-radius:22px;
@@ -216,10 +198,10 @@ html,body {
   text-align:center;
   color:#153854;
   font-size:clamp(28px,3vw,48px);
+  line-height:1.25;
   font-weight:800;
   box-shadow:0 18px 55px rgba(0,0,0,.45);
 }
-
 </style>
 </head>
 
@@ -227,146 +209,92 @@ html,body {
 
 <main class="stage">
 
-  <header class="header">
+<header class="header">
 
-    <h1>
-      Different roles. Diverse strengths.
-    </h1>
+<h1>TOGETHER WE MAKE A DIFFERENCE</h1>
 
-    <div class="counter">
-      Flags Ready:
-      <span id="flagCount">0</span>
-    </div>
+<div class="counter">
+Flags Ready:
+<span id="flagCount">0</span>
+</div>
 
-  </header>
+</header>
 
-  <div
-    id="flagsLayer"
-    class="flags-layer">
-  </div>
+<div id="flagsLayer" class="flags-layer"></div>
 
 </main>
 
-
-<div
-  id="status"
-  class="status">
-  Connecting...
+<div id="status" class="status">
+Connecting...
 </div>
 
+<div id="controls" class="controls">
 
-<div
-  id="controls"
-  class="controls">
+<button id="startButton" class="secondary">
+Start New Activity
+</button>
 
-  <button
-    id="startButton"
-    class="secondary">
-    Start New Activity
-  </button>
+<button id="refreshButton" class="secondary">
+Refresh
+</button>
 
-  <button
-    id="refreshButton"
-    class="secondary">
-    Refresh
-  </button>
+<button id="revealButton" class="primary">
+Reveal Flags
+</button>
 
-  <button
-    id="revealButton"
-    class="primary">
-    Reveal Flags
-  </button>
+<button id="finalButton" class="secondary">
+Final Message
+</button>
 
-  <button
-    id="finalButton"
-    class="secondary">
-    Final Message
-  </button>
+<button id="resetButton" class="secondary">
+Reset Display
+</button>
 
-  <button
-    id="resetButton"
-    class="secondary">
-    Reset Display
-  </button>
-
-  <button
-    id="hideButton"
-    class="secondary">
-    Hide Controls
-  </button>
+<button id="hideButton" class="secondary">
+Hide Controls
+</button>
 
 </div>
 
+<div id="finalOverlay" class="final-overlay">
 
-<div
-  id="finalOverlay"
-  class="final-overlay">
-
-  <div
-    id="finalCard"
-    class="final-card">
-  </div>
-
+<div id="finalCard" class="final-card">
+Different Roles. Diverse Strengths. One Team. One Goal.
 </div>
 
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-/* =========================================
-   SUPABASE
-========================================= */
-
 const SUPABASE_URL =
-  "https://oooanvnjvuwzsqocwzjs.supabase.co";
+"https://oooanvnjvuwzsqocwzjs.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_4lDV3RGlIGFgNVHiTUvhhg_Gk0UFP-8";
+"sb_publishable_4lDV3RGlIGFgNVHiTUvhhg_Gk0UFP-8";
 
 const db =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-
-/* =========================================
-   STATE
-========================================= */
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 let submissions = [];
-
 let revealed = false;
-
-let currentActivityId =
-  null;
-
+let currentActivityId = null;
 
 const flagsLayer =
-  document.getElementById(
-    "flagsLayer"
-  );
+document.getElementById("flagsLayer");
 
 const flagCount =
-  document.getElementById(
-    "flagCount"
-  );
+document.getElementById("flagCount");
 
 const statusBox =
-  document.getElementById(
-    "status"
-  );
+document.getElementById("status");
 
-
-/* =========================================
-   FLAG POSITIONS
-   75 TOTAL
-========================================= */
 
 const positions = [
-
-/* CENTER BACK */
 
 {x:30,y:27,w:4.6,h:5.4},
 {x:36,y:27,w:4.6,h:5.4},
@@ -393,51 +321,35 @@ const positions = [
 {x:61,y:39,w:5.4,h:6.2},
 {x:68,y:39,w:5.4,h:6.2},
 
-
-/* LEFT */
-
 {x:8,y:28,w:5.2,h:6},
 {x:14,y:31,w:5.4,h:6.2},
 {x:19,y:34,w:5.5,h:6.3},
-
 {x:6,y:38,w:5.8,h:6.6},
 {x:13,y:41,w:6,h:6.8},
 {x:19,y:44,w:6.1,h:7},
-
 {x:5,y:49,w:6.5,h:7.4},
 {x:12,y:52,w:6.7,h:7.6},
 {x:19,y:55,w:6.8,h:7.8},
-
 {x:4,y:61,w:7.2,h:8.1},
 {x:12,y:64,w:7.4,h:8.3},
 {x:20,y:67,w:7.5,h:8.4},
 
-
-/* RIGHT */
-
 {x:87,y:28,w:5.2,h:6},
 {x:81,y:31,w:5.4,h:6.2},
 {x:76,y:34,w:5.5,h:6.3},
-
 {x:89,y:38,w:5.8,h:6.6},
 {x:82,y:41,w:6,h:6.8},
 {x:76,y:44,w:6.1,h:7},
-
 {x:89,y:49,w:6.5,h:7.4},
 {x:82,y:52,w:6.7,h:7.6},
 {x:75,y:55,w:6.8,h:7.8},
-
 {x:89,y:61,w:7.2,h:8.1},
 {x:81,y:64,w:7.4,h:8.3},
 {x:73,y:67,w:7.5,h:8.4},
 
-
-/* LOWER / FOREGROUND */
-
 {x:5,y:74,w:8,h:8.8},
 {x:14,y:77,w:8.2,h:9},
 {x:23,y:80,w:8.4,h:9.2},
-
 {x:87,y:74,w:8,h:8.8},
 {x:78,y:77,w:8.2,h:9},
 {x:69,y:80,w:8.4,h:9.2},
@@ -445,681 +357,468 @@ const positions = [
 {x:5,y:86,w:9,h:9.8},
 {x:15,y:87,w:9,h:9.8},
 {x:25,y:88,w:9,h:9.8},
-
 {x:86,y:86,w:9,h:9.8},
 {x:76,y:87,w:9,h:9.8},
 {x:66,y:88,w:9,h:9.8},
 
-
-/* LIMITED FIELD OVERLAP */
-
 {x:36,y:53,w:6.2,h:7},
 {x:46,y:51,w:6.2,h:7},
 {x:56,y:53,w:6.2,h:7},
-
 {x:31,y:61,w:6.7,h:7.6},
 {x:42,y:59,w:6.7,h:7.6},
 {x:53,y:59,w:6.7,h:7.6},
 {x:64,y:61,w:6.7,h:7.6},
-
 {x:34,y:69,w:7.2,h:8.1},
 {x:45,y:68,w:7.2,h:8.1},
 {x:56,y:68,w:7.2,h:8.1},
-
 {x:39,y:77,w:7.8,h:8.7},
 {x:51,y:77,w:7.8,h:8.7},
 
-
-/* ADDITIONAL MID-STAND */
-
 {x:23,y:47,w:5.8,h:6.6},
 {x:70,y:47,w:5.8,h:6.6},
-
 {x:23,y:58,w:6.3,h:7.2},
 {x:70,y:58,w:6.3,h:7.2},
-
 {x:26,y:71,w:7,h:7.8},
 {x:67,y:71,w:7,h:7.8},
-
 {x:34,y:86,w:8.5,h:9.3},
 {x:57,y:86,w:8.5,h:9.3},
-
 {x:45,y:86,w:8.5,h:9.3}
 
 ];
 
 
-/* =========================================
-   IMAGE URL
-========================================= */
+function getImageURL(imagePath) {
 
-function getImageURL(
-  imagePath
-) {
+return db
+.storage
+.from("flags")
+.getPublicUrl(imagePath)
+.data
+.publicUrl;
 
-  return db
-    .storage
-    .from("flags")
-    .getPublicUrl(
-      imagePath
-    )
-    .data
-    .publicUrl;
 }
 
-
-/* =========================================
-   GET CURRENT ACTIVITY
-========================================= */
 
 async function getCurrentActivity() {
 
-  const result =
-    await db
-      .from("activity_state")
-      .select("current_activity_id")
-      .eq("id",1)
-      .single();
+const result =
+await db
+.from("activity_state")
+.select("current_activity_id")
+.eq("id",1)
+.single();
 
+if (result.error) {
 
-  if (result.error) {
+console.error(result.error);
 
-    console.error(
-      result.error
-    );
+statusBox.textContent =
+"Unable to load activity.";
 
-    statusBox.textContent =
-      "Unable to load activity.";
+return false;
 
-    return false;
-  }
-
-
-  currentActivityId =
-    result.data.current_activity_id;
-
-
-  return true;
 }
 
+currentActivityId =
+result.data.current_activity_id;
 
-/* =========================================
-   LOAD CURRENT ACTIVITY FLAGS
-========================================= */
+return true;
+
+}
+
 
 async function loadFlags() {
 
-  statusBox.textContent =
-    "Loading flags...";
+statusBox.textContent =
+"Loading flags...";
 
+if (!currentActivityId) {
 
-  if (!currentActivityId) {
+const ready =
+await getCurrentActivity();
 
-    const ready =
-      await getCurrentActivity();
-
-    if (!ready) {
-      return;
-    }
-  }
-
-
-  const result =
-    await db
-      .from("submissions")
-      .select(
-        "id,created_at,name,image_path,activity_id"
-      )
-      .eq(
-        "activity_id",
-        currentActivityId
-      )
-      .order(
-        "created_at",
-        {
-          ascending:true
-        }
-      );
-
-
-  if (result.error) {
-
-    console.error(
-      result.error
-    );
-
-    statusBox.textContent =
-      "Unable to load flags.";
-
-    return;
-  }
-
-
-  submissions =
-    result.data || [];
-
-
-  flagCount.textContent =
-    submissions.length;
-
-
-  drawFlags();
-
-
-  statusBox.textContent =
-    "Connected";
+if (!ready) {
+return;
 }
 
+}
 
-/* =========================================
-   DRAW FLAGS
-========================================= */
+const result =
+await db
+.from("submissions")
+.select("id,created_at,name,image_path,activity_id")
+.eq("activity_id",currentActivityId)
+.order("created_at",{ascending:true});
+
+if (result.error) {
+
+console.error(result.error);
+
+statusBox.textContent =
+"Unable to load flags.";
+
+return;
+
+}
+
+submissions =
+result.data || [];
+
+flagCount.textContent =
+submissions.length;
+
+drawFlags();
+
+statusBox.textContent =
+"Connected";
+
+}
+
 
 function drawFlags() {
 
-  flagsLayer.innerHTML =
-    "";
+flagsLayer.innerHTML = "";
 
+submissions
+.slice(0,positions.length)
+.forEach(function(submission,index) {
 
-  submissions
-    .slice(
-      0,
-      positions.length
-    )
-    .forEach(
-      function(
-        submission,
-        index
-      ) {
+const position =
+positions[index];
 
-        const position =
-          positions[index];
+const flag =
+document.createElement("div");
 
+flag.className =
+"flag";
 
-        const flag =
-          document.createElement(
-            "div"
-          );
+flag.style.left =
+position.x + "%";
 
+flag.style.top =
+position.y + "%";
 
-        flag.className =
-          "flag";
+flag.style.width =
+position.w + "%";
 
+flag.style.height =
+position.h + "%";
 
-        flag.style.left =
-          position.x + "%";
+flag.innerHTML = `
 
+<div class="flag-pole"></div>
 
-        flag.style.top =
-          position.y + "%";
+<div class="flag-art">
 
+<img
+src="${getImageURL(submission.image_path)}"
+alt="Participant flag"
+>
 
-        flag.style.width =
-          position.w + "%";
+</div>
 
+`;
 
-        flag.style.height =
-          position.h + "%";
+flagsLayer.appendChild(flag);
 
+if (revealed) {
 
-        flag.innerHTML = `
+requestAnimationFrame(function() {
 
-          <div class="flag-pole"></div>
+flag.classList.add("revealed");
 
-          <div class="flag-art">
+});
 
-            <img
-              src="${getImageURL(
-                submission.image_path
-              )}"
-              alt="Participant flag"
-            >
-
-          </div>
-
-        `;
-
-
-        flagsLayer.appendChild(
-          flag
-        );
-
-
-        if (revealed) {
-
-          requestAnimationFrame(
-            function() {
-
-              flag.classList.add(
-                "revealed"
-              );
-
-            }
-          );
-        }
-
-      }
-    );
 }
 
+});
 
-/* =========================================
-   REVEAL
-========================================= */
+}
+
 
 function revealFlags() {
 
-  revealed =
-    true;
+revealed = true;
 
+const flags =
+document.querySelectorAll(".flag");
 
-  const flags =
-    document.querySelectorAll(
-      ".flag"
-    );
+flags.forEach(function(flag,index) {
 
+setTimeout(function() {
 
-  flags.forEach(
-    function(
-      flag,
-      index
-    ) {
+flag.classList.add("revealed");
 
-      setTimeout(
-        function() {
+},index * 55);
 
-          flag.classList.add(
-            "revealed"
-          );
+});
 
-        },
+document
+.getElementById("revealButton")
+.textContent =
+"Flags Revealed";
 
-        index * 55
-      );
-
-    }
-  );
-
-
-  document
-    .getElementById(
-      "revealButton"
-    )
-    .textContent =
-      "Flags Revealed";
 }
 
-
-/* =========================================
-   RESET DISPLAY
-========================================= */
 
 function resetDisplay() {
 
-  revealed =
-    false;
+revealed = false;
 
+document
+.querySelectorAll(".flag")
+.forEach(function(flag) {
 
-  document
-    .querySelectorAll(
-      ".flag"
-    )
-    .forEach(
-      function(flag) {
+flag.classList.remove("revealed");
 
-        flag.classList.remove(
-          "revealed"
-        );
+});
 
-      }
-    );
+document
+.getElementById("revealButton")
+.textContent =
+"Reveal Flags";
 
+document
+.getElementById("finalOverlay")
+.style
+.display =
+"none";
 
-  document
-    .getElementById(
-      "revealButton"
-    )
-    .textContent =
-      "Reveal Flags";
-
-
-  document
-    .getElementById(
-      "finalOverlay"
-    )
-    .style
-    .display =
-      "none";
 }
 
-
-/* =========================================
-   START NEW ACTIVITY
-
-   Creates a new activity ID.
-   Does NOT delete old submissions.
-========================================= */
 
 async function startNewActivity() {
 
-  const confirmed =
-    window.confirm(
-      "Start a new activity? The current stadium will be cleared, but previous submissions will not be deleted."
-    );
+const confirmed =
+window.confirm(
+"Start a new activity? The current stadium will be cleared, but previous submissions will not be deleted."
+);
 
+if (!confirmed) {
+return;
+}
 
-  if (!confirmed) {
-    return;
-  }
+statusBox.textContent =
+"Starting new activity...";
 
+const newActivityId =
+"activity-" +
+Date.now() +
+"-" +
+Math.random()
+.toString(36)
+.slice(2,8);
 
-  statusBox.textContent =
-    "Starting new activity...";
+const result =
+await db
+.from("activity_state")
+.update({
 
+current_activity_id:
+newActivityId,
 
-  const newActivityId =
-    "activity-" +
-    Date.now() +
-    "-" +
-    Math.random()
-      .toString(36)
-      .slice(2,8);
+updated_at:
+new Date().toISOString()
 
+})
+.eq("id",1)
+.select();
 
-  const result =
-    await db
-      .from("activity_state")
-      .update({
-        current_activity_id:
-          newActivityId,
+if (result.error) {
 
-        updated_at:
-          new Date().toISOString()
-      })
-      .eq(
-        "id",
-        1
-      )
-      .select();
+console.error(result.error);
 
+statusBox.textContent =
+"Could not start new activity.";
 
-  if (result.error) {
+return;
 
-    console.error(
-      result.error
-    );
+}
 
-    statusBox.textContent =
-      "Could not start new activity.";
+currentActivityId =
+newActivityId;
 
-    return;
-  }
+submissions = [];
 
+resetDisplay();
 
-  currentActivityId =
-    newActivityId;
+drawFlags();
 
+flagCount.textContent =
+"0";
 
-  submissions =
-    [];
+statusBox.textContent =
+"New activity ready";
 
-
-  resetDisplay();
-
-
-  drawFlags();
-
-
-  flagCount.textContent =
-    "0";
-
-
-  statusBox.textContent =
-    "New activity ready";
 }
 
 
-/* =========================================
-   REALTIME NEW SUBMISSIONS
-========================================= */
-
 db
-  .channel(
-    "lwss-stadium-live"
-  )
+.channel("lwss-stadium-live")
 
-  .on(
-    "postgres_changes",
+.on(
+"postgres_changes",
 
-    {
-      event:"INSERT",
-      schema:"public",
-      table:"submissions"
-    },
+{
+event:"INSERT",
+schema:"public",
+table:"submissions"
+},
 
-    function(payload) {
+function(payload) {
 
-      /*
-        Ignore submissions belonging
-        to older activity sessions.
-      */
+if (
+payload.new.activity_id !==
+currentActivityId
+) {
+return;
+}
 
-      if (
-        payload.new.activity_id !==
-        currentActivityId
-      ) {
+const exists =
+submissions.some(function(submission) {
 
-        return;
-      }
+return submission.id === payload.new.id;
 
+});
 
-      const exists =
-        submissions.some(
-          function(submission) {
+if (exists) {
+return;
+}
 
-            return (
-              submission.id ===
-              payload.new.id
-            );
+submissions.push(payload.new);
 
-          }
-        );
+flagCount.textContent =
+submissions.length;
 
+drawFlags();
 
-      if (exists) {
-        return;
-      }
+if (revealed) {
 
+statusBox.textContent =
+"New flag added!";
 
-      submissions.push(
-        payload.new
-      );
+setTimeout(function() {
 
+statusBox.textContent =
+"Connected";
 
-      flagCount.textContent =
-        submissions.length;
+},1600);
 
+}
 
-      drawFlags();
+}
 
+)
 
-      /*
-        If the presenter already revealed
-        the flags, late submissions appear
-        automatically.
-      */
-
-      if (revealed) {
-
-        statusBox.textContent =
-          "New flag added!";
-
-
-        setTimeout(
-          function() {
-
-            statusBox.textContent =
-              "Connected";
-
-          },
-
-          1600
-        );
-      }
-
-    }
-  )
-
-  .subscribe();
-
-
-/* =========================================
-   BUTTONS
-========================================= */
-
-document
-  .getElementById(
-    "revealButton"
-  )
-  .addEventListener(
-    "click",
-    revealFlags
-  );
+.subscribe();
 
 
 document
-  .getElementById(
-    "refreshButton"
-  )
-  .addEventListener(
-    "click",
-    async function() {
-
-      await getCurrentActivity();
-
-      await loadFlags();
-
-    }
-  );
+.getElementById("revealButton")
+.addEventListener(
+"click",
+revealFlags
+);
 
 
 document
-  .getElementById(
-    "resetButton"
-  )
-  .addEventListener(
-    "click",
-    resetDisplay
-  );
+.getElementById("refreshButton")
+.addEventListener(
+"click",
+async function() {
+
+await getCurrentActivity();
+
+await loadFlags();
+
+}
+);
 
 
 document
-  .getElementById(
-    "startButton"
-  )
-  .addEventListener(
-    "click",
-    startNewActivity
-  );
+.getElementById("resetButton")
+.addEventListener(
+"click",
+resetDisplay
+);
 
 
 document
-  .getElementById(
-    "hideButton"
-  )
-  .addEventListener(
-    "click",
-    function() {
-
-      document
-        .getElementById(
-          "controls"
-        )
-        .style
-        .display =
-          "none";
-
-
-      statusBox
-        .style
-        .display =
-          "none";
-
-    }
-  );
+.getElementById("startButton")
+.addEventListener(
+"click",
+startNewActivity
+);
 
 
 document
-  .getElementById(
-    "finalButton"
-  )
-  .addEventListener(
-    "click",
-    function() {
+.getElementById("hideButton")
+.addEventListener(
+"click",
+function() {
 
-      /*
-        Final message intentionally
-        remains blank until you choose
-        the wording.
-      */
+document
+.getElementById("controls")
+.style
+.display =
+"none";
 
-      document
-        .getElementById(
-          "finalCard"
-        )
-        .textContent =
-          "";
+statusBox.style.display =
+"none";
 
-
-      document
-        .getElementById(
-          "finalOverlay"
-        )
-        .style
-        .display =
-          "flex";
-
-    }
-  );
+}
+);
 
 
 document
-  .getElementById(
-    "finalOverlay"
-  )
-  .addEventListener(
-    "click",
-    function() {
+.getElementById("finalButton")
+.addEventListener(
+"click",
+function() {
 
-      document
-        .getElementById(
-          "finalOverlay"
-        )
-        .style
-        .display =
-          "none";
+document
+.getElementById("finalCard")
+.textContent =
+"Different Roles. Diverse Strengths. One Team. One Goal.";
 
-    }
-  );
+document
+.getElementById("finalOverlay")
+.style
+.display =
+"flex";
+
+}
+);
 
 
-/* =========================================
-   START PAGE
-========================================= */
+document
+.getElementById("finalOverlay")
+.addEventListener(
+"click",
+function() {
+
+document
+.getElementById("finalOverlay")
+.style
+.display =
+"none";
+
+}
+);
+
 
 async function initialize() {
 
-  const ready =
-    await getCurrentActivity();
+const ready =
+await getCurrentActivity();
 
+if (ready) {
 
-  if (ready) {
+await loadFlags();
 
-    await loadFlags();
-
-  }
 }
 
+}
 
 initialize();
 
