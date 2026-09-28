@@ -3,337 +3,200 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>LWSS Flag Stadium</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#0b1721;
 }
 
-html,
-body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #0b1721;
+.stage{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  background-image:url("ChatGPT Image Sep 28, 2026, 03_14_50 PM.png");
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+  overflow:hidden;
 }
 
-/* =========================
-   FULL SCREEN STADIUM
-========================= */
-
-.stage {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-
-  background-image: url("ChatGPT Image Sep 28, 2026, 03_14_50 PM.png");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-
-  overflow: hidden;
+.header{
+  position:absolute;
+  z-index:200;
+  top:2.5%;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  text-align:center;
 }
 
-/* =========================
-   TITLE
-========================= */
-
-.header {
-  position: absolute;
-  z-index: 200;
-  top: 2.5%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  text-align: center;
+.header h1{
+  margin:0;
+  font-size:clamp(30px,3.4vw,60px);
+  color:#123452;
+  font-weight:800;
+  text-shadow:0 2px 3px rgba(255,255,255,.85);
 }
 
-.header h1 {
-  margin: 0;
-  font-size: clamp(30px, 3.4vw, 60px);
-  color: #123452;
-  font-weight: 800;
-
-  text-shadow:
-    0 2px 3px rgba(255,255,255,.85);
+.counter{
+  display:inline-block;
+  margin-top:9px;
+  padding:7px 17px;
+  border-radius:30px;
+  background:rgba(15,48,75,.9);
+  color:white;
+  font-size:15px;
+  font-weight:700;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
 }
 
-.counter {
-  display: inline-block;
-  margin-top: 9px;
-  padding: 7px 17px;
-  border-radius: 30px;
-  background: rgba(15,48,75,.9);
-  color: white;
-  font-size: 15px;
-  font-weight: 700;
-
-  box-shadow:
-    0 2px 8px rgba(0,0,0,.25);
+.flags-layer{
+  position:absolute;
+  inset:0;
+  z-index:100;
+  pointer-events:none;
 }
 
-/* =========================
-   FLAGS
-========================= */
-
-.flags-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 100;
-  pointer-events: none;
-}
-
-.flag {
-  position: absolute;
-
-  opacity: 0;
-
-  transform:
-    translateY(45px)
-    scale(.7);
-
-  transform-origin:
-    left bottom;
-
+.flag{
+  position:absolute;
+  opacity:0;
+  transform:translateY(55px) scale(.65);
+  transform-origin:center bottom;
   transition:
-    opacity .45s ease,
-    transform .9s cubic-bezier(.2,.9,.2,1.15);
+    opacity .4s ease,
+    transform .8s cubic-bezier(.2,.9,.2,1.15);
 }
 
-.flag.revealed {
-  opacity: 1;
-
-  transform:
-    translateY(0)
-    scale(1);
+.flag.revealed{
+  opacity:1;
+  transform:translateY(0) scale(1);
 }
 
-.flag-pole {
-  position: absolute;
-
-  left: -4px;
-  top: -4px;
-
-  width: 3px;
-
-  height:
-    calc(100% + 14px);
-
-  background:
-    #d9dddf;
-
-  border-radius: 2px;
-
-  box-shadow:
-    1px 1px 3px rgba(0,0,0,.65);
+.flag-pole{
+  position:absolute;
+  left:-3px;
+  top:-3px;
+  width:3px;
+  height:calc(100% + 13px);
+  background:#e1e4e5;
+  border-radius:2px;
+  box-shadow:1px 1px 3px rgba(0,0,0,.55);
 }
 
-.flag-art {
-  position: relative;
-
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-
-  background: white;
-
-  border:
-    2px solid rgba(255,255,255,.95);
-
-  box-shadow:
-    2px 4px 8px rgba(0,0,0,.55);
-
-  transform-origin:
-    left center;
+.flag-art{
+  position:relative;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:white;
+  border:2px solid rgba(255,255,255,.96);
+  box-shadow:2px 4px 9px rgba(0,0,0,.5);
+  transform-origin:left center;
 }
 
-.flag-art img {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
+.flag-art img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-.flag.revealed .flag-art {
-  animation:
-    gentleWave
-    3.8s
-    ease-in-out
-    infinite;
+.flag.revealed .flag-art{
+  animation:gentleWave 3.8s ease-in-out infinite;
 }
 
-@keyframes gentleWave {
-
-  0%,
-  100% {
-    transform:
-      perspective(500px)
-      rotateY(0deg)
-      skewY(0deg);
+@keyframes gentleWave{
+  0%,100%{
+    transform:perspective(500px) rotateY(0deg) skewY(0deg);
   }
-
-  25% {
-    transform:
-      perspective(500px)
-      rotateY(-5deg)
-      skewY(.5deg);
+  25%{
+    transform:perspective(500px) rotateY(-5deg) skewY(.5deg);
   }
-
-  50% {
-    transform:
-      perspective(500px)
-      rotateY(2deg)
-      skewY(-.3deg);
+  50%{
+    transform:perspective(500px) rotateY(2deg) skewY(-.3deg);
   }
-
-  75% {
-    transform:
-      perspective(500px)
-      rotateY(-2deg)
-      skewY(.25deg);
+  75%{
+    transform:perspective(500px) rotateY(-2deg) skewY(.25deg);
   }
 }
 
-/* =========================
-   CONTROLS
-========================= */
-
-.controls {
-  position: fixed;
-  z-index: 500;
-
-  right: 12px;
-  bottom: 12px;
-
-  display: flex;
-  gap: 7px;
-
-  padding: 8px;
-
-  border-radius: 11px;
-
-  background:
-    rgba(7,19,29,.9);
-
-  box-shadow:
-    0 4px 15px rgba(0,0,0,.35);
+.controls{
+  position:fixed;
+  z-index:500;
+  right:12px;
+  bottom:12px;
+  display:flex;
+  gap:7px;
+  padding:8px;
+  border-radius:11px;
+  background:rgba(7,19,29,.9);
+  box-shadow:0 4px 15px rgba(0,0,0,.35);
 }
 
-.controls button {
-  border: 0;
-
-  border-radius: 7px;
-
-  padding:
-    9px 12px;
-
-  font-size: 13px;
-
-  font-weight: 700;
-
-  cursor: pointer;
+.controls button{
+  border:0;
+  border-radius:7px;
+  padding:9px 12px;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
 }
 
-.primary {
-  background:
-    #d4aa4b;
-
-  color:
-    #172b3d;
+.primary{
+  background:#d4aa4b;
+  color:#172b3d;
 }
 
-.secondary {
-  background:
-    #f0f3f4;
-
-  color:
-    #17334c;
+.secondary{
+  background:#f0f3f4;
+  color:#17334c;
 }
 
-.status {
-  position: fixed;
-
-  z-index: 500;
-
-  left: 12px;
-  bottom: 12px;
-
-  padding:
-    7px 10px;
-
-  border-radius: 7px;
-
-  background:
-    rgba(5,15,22,.82);
-
-  color: white;
-
-  font-size: 12px;
+.status{
+  position:fixed;
+  z-index:500;
+  left:12px;
+  bottom:12px;
+  padding:7px 10px;
+  border-radius:7px;
+  background:rgba(5,15,22,.82);
+  color:white;
+  font-size:12px;
 }
 
-/* =========================
-   FINAL MESSAGE
-========================= */
-
-.final-overlay {
-  position: fixed;
-
-  z-index: 1000;
-
-  inset: 0;
-
-  display: none;
-
-  align-items: center;
-  justify-content: center;
-
-  background:
-    rgba(6,18,28,.82);
+.final-overlay{
+  position:fixed;
+  z-index:1000;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(6,18,28,.82);
 }
 
-.final-card {
-  width:
-    min(850px,86vw);
-
-  min-height:
-    230px;
-
-  padding:
-    40px;
-
-  border-radius:
-    22px;
-
-  background:
-    rgba(255,255,255,.97);
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  color:
-    #153854;
-
-  font-size:
-    clamp(28px,3vw,48px);
-
-  font-weight:
-    800;
-
-  box-shadow:
-    0 18px 55px rgba(0,0,0,.45);
+.final-card{
+  width:min(850px,86vw);
+  min-height:230px;
+  padding:40px;
+  border-radius:22px;
+  background:rgba(255,255,255,.97);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#153854;
+  font-size:clamp(28px,3vw,48px);
+  font-weight:800;
+  box-shadow:0 18px 55px rgba(0,0,0,.45);
 }
-
 </style>
 </head>
 
@@ -342,117 +205,57 @@ body {
 <main class="stage">
 
   <header class="header">
-
-    <h1>
-      Different roles. Diverse strengths.
-    </h1>
+    <h1>Different roles. Diverse strengths.</h1>
 
     <div class="counter">
-
       Flags Ready:
       <span id="flagCount">0</span>
-
     </div>
-
   </header>
 
-
-  <div
-    id="flagsLayer"
-    class="flags-layer">
-  </div>
+  <div id="flagsLayer" class="flags-layer"></div>
 
 </main>
 
-
-<div
-  id="status"
-  class="status">
-
+<div id="status" class="status">
   Connecting...
-
 </div>
 
+<div id="controls" class="controls">
 
-<div
-  id="controls"
-  class="controls">
-
-  <button
-    id="startButton"
-    class="secondary">
-
+  <button id="startButton" class="secondary">
     Start New Activity
-
   </button>
 
-
-  <button
-    id="refreshButton"
-    class="secondary">
-
+  <button id="refreshButton" class="secondary">
     Refresh
-
   </button>
 
-
-  <button
-    id="revealButton"
-    class="primary">
-
+  <button id="revealButton" class="primary">
     Reveal Flags
-
   </button>
 
-
-  <button
-    id="finalButton"
-    class="secondary">
-
+  <button id="finalButton" class="secondary">
     Final Message
-
   </button>
 
-
-  <button
-    id="resetButton"
-    class="secondary">
-
+  <button id="resetButton" class="secondary">
     Reset Display
-
   </button>
 
-
-  <button
-    id="hideButton"
-    class="secondary">
-
+  <button id="hideButton" class="secondary">
     Hide Controls
-
   </button>
 
 </div>
 
-
-<div
-  id="finalOverlay"
-  class="final-overlay">
-
-  <div
-    id="finalCard"
-    class="final-card">
-  </div>
-
+<div id="finalOverlay" class="final-overlay">
+  <div id="finalCard" class="final-card"></div>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-
-/* =========================
-   SUPABASE
-========================= */
 
 const SUPABASE_URL =
   "https://oooanvnjvuwzsqocwzjs.supabase.co";
@@ -460,156 +263,133 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   "sb_publishable_4lDV3RGlIGFgNVHiTUvhhg_Gk0UFP-8";
 
-
 const db =
   window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
 
-
-/* =========================
-   STATE
-========================= */
-
 let submissions = [];
-
 let revealed = false;
 
-
 const flagsLayer =
-  document.getElementById(
-    "flagsLayer"
-  );
-
+  document.getElementById("flagsLayer");
 
 const flagCount =
-  document.getElementById(
-    "flagCount"
-  );
-
+  document.getElementById("flagCount");
 
 const statusBox =
-  document.getElementById(
-    "status"
-  );
+  document.getElementById("status");
 
 
-/* =========================
-   FLAG POSITIONS
-========================= */
+/* =====================================
+   75 FLAGS ACROSS THE SOCCER FIELD
+   Smaller at back, larger toward front
+===================================== */
 
-const positions = [
+const positions = [];
 
-/* UPPER BACK STANDS */
+const fieldRows = [
 
-{x:18,y:28,w:5.4,h:6.2},
-{x:24,y:28,w:5.4,h:6.2},
-{x:30,y:28,w:5.4,h:6.2},
-{x:36,y:28,w:5.4,h:6.2},
-{x:42,y:28,w:5.4,h:6.2},
-{x:48,y:28,w:5.4,h:6.2},
-{x:54,y:28,w:5.4,h:6.2},
-{x:60,y:28,w:5.4,h:6.2},
-{x:66,y:28,w:5.4,h:6.2},
-{x:72,y:28,w:5.4,h:6.2},
-{x:78,y:28,w:5.4,h:6.2},
+  {
+    count:11,
+    y:53,
+    startX:28,
+    endX:69,
+    w:4.0,
+    h:4.6
+  },
 
-{x:20,y:35,w:5.7,h:6.5},
-{x:26,y:35,w:5.7,h:6.5},
-{x:32,y:35,w:5.7,h:6.5},
-{x:38,y:35,w:5.7,h:6.5},
-{x:44,y:35,w:5.7,h:6.5},
-{x:50,y:35,w:5.7,h:6.5},
-{x:56,y:35,w:5.7,h:6.5},
-{x:62,y:35,w:5.7,h:6.5},
-{x:68,y:35,w:5.7,h:6.5},
-{x:74,y:35,w:5.7,h:6.5},
+  {
+    count:12,
+    y:60,
+    startX:23,
+    endX:73,
+    w:4.4,
+    h:5.1
+  },
 
-/* LOWER BACK STANDS */
+  {
+    count:13,
+    y:67,
+    startX:18,
+    endX:77,
+    w:4.8,
+    h:5.6
+  },
 
-{x:21,y:42,w:6.2,h:7},
-{x:28,y:42,w:6.2,h:7},
-{x:35,y:42,w:6.2,h:7},
-{x:42,y:42,w:6.2,h:7},
-{x:49,y:42,w:6.2,h:7},
-{x:56,y:42,w:6.2,h:7},
-{x:63,y:42,w:6.2,h:7},
-{x:70,y:42,w:6.2,h:7},
+  {
+    count:13,
+    y:74,
+    startX:14,
+    endX:81,
+    w:5.2,
+    h:6.1
+  },
 
-/* LEFT SIDE */
+  {
+    count:13,
+    y:81,
+    startX:10,
+    endX:85,
+    w:5.7,
+    h:6.7
+  },
 
-{x:4,y:30,w:6.3,h:7},
-{x:10,y:33,w:6.5,h:7.2},
-
-{x:3,y:38,w:6.7,h:7.5},
-{x:10,y:41,w:6.9,h:7.7},
-
-{x:3,y:47,w:7.1,h:8},
-{x:11,y:49,w:7.2,h:8},
-
-{x:2,y:56,w:7.5,h:8.3},
-{x:10,y:58,w:7.6,h:8.3},
-
-{x:2,y:66,w:7.8,h:8.5},
-{x:11,y:68,w:8,h:8.7},
-
-{x:3,y:76,w:8.2,h:9},
-{x:12,y:78,w:8.3,h:9},
-
-/* RIGHT SIDE */
-
-{x:90,y:30,w:6.3,h:7},
-{x:83,y:33,w:6.5,h:7.2},
-
-{x:90,y:38,w:6.7,h:7.5},
-{x:82,y:41,w:6.9,h:7.7},
-
-{x:90,y:47,w:7.1,h:8},
-{x:82,y:49,w:7.2,h:8},
-
-{x:90,y:56,w:7.5,h:8.3},
-{x:82,y:58,w:7.6,h:8.3},
-
-{x:90,y:66,w:7.8,h:8.5},
-{x:81,y:68,w:8,h:8.7},
-
-{x:89,y:76,w:8.2,h:9},
-{x:80,y:78,w:8.3,h:9},
-
-/* FRONT SEATING */
-
-{x:7,y:87,w:8.5,h:9},
-{x:16,y:87,w:8.5,h:9},
-{x:25,y:87,w:8.5,h:9},
-{x:34,y:87,w:8.5,h:9},
-{x:43,y:87,w:8.5,h:9},
-{x:52,y:87,w:8.5,h:9},
-{x:61,y:87,w:8.5,h:9},
-{x:70,y:87,w:8.5,h:9},
-{x:79,y:87,w:8.5,h:9},
-{x:88,y:87,w:8.5,h:9},
-
-/* EXTRA UPPER POSITIONS */
-
-{x:23,y:22,w:5,h:5.8},
-{x:29,y:22,w:5,h:5.8},
-{x:35,y:22,w:5,h:5.8},
-{x:41,y:22,w:5,h:5.8},
-{x:47,y:22,w:5,h:5.8},
-{x:53,y:22,w:5,h:5.8},
-{x:59,y:22,w:5,h:5.8},
-{x:65,y:22,w:5,h:5.8},
-{x:71,y:22,w:5,h:5.8}
+  {
+    count:13,
+    y:88,
+    startX:6,
+    endX:89,
+    w:6.2,
+    h:7.3
+  }
 
 ];
 
+fieldRows.forEach(
+  function(row,rowIndex){
 
-/* =========================
-   PUBLIC IMAGE URL
-========================= */
+    for(
+      let i=0;
+      i<row.count;
+      i++
+    ){
 
-function getImageURL(imagePath) {
+      const progress =
+        row.count === 1
+          ? .5
+          : i/(row.count-1);
+
+      let x =
+        row.startX +
+        (
+          row.endX -
+          row.startX
+        ) * progress;
+
+      if(
+        rowIndex % 2 === 1
+      ){
+        x += .5;
+      }
+
+      positions.push({
+        x:x,
+        y:row.y,
+        w:row.w,
+        h:row.h
+      });
+    }
+  }
+);
+
+
+/* =====================================
+   STORAGE IMAGE URL
+===================================== */
+
+function getImageURL(imagePath){
 
   return db
     .storage
@@ -620,15 +400,14 @@ function getImageURL(imagePath) {
 }
 
 
-/* =========================
-   LOAD SUBMISSIONS
-========================= */
+/* =====================================
+   LOAD FLAGS
+===================================== */
 
-async function loadFlags() {
+async function loadFlags(){
 
   statusBox.textContent =
     "Loading flags...";
-
 
   const result =
     await db
@@ -639,12 +418,11 @@ async function loadFlags() {
       .order(
         "created_at",
         {
-          ascending: true
+          ascending:true
         }
       );
 
-
-  if (result.error) {
+  if(result.error){
 
     console.error(
       result.error
@@ -656,32 +434,27 @@ async function loadFlags() {
     return;
   }
 
-
   submissions =
     result.data || [];
-
 
   flagCount.textContent =
     submissions.length;
 
-
   drawFlags();
-
 
   statusBox.textContent =
     "Connected";
 }
 
 
-/* =========================
+/* =====================================
    DRAW FLAGS
-========================= */
+===================================== */
 
-function drawFlags() {
+function drawFlags(){
 
   flagsLayer.innerHTML =
     "";
-
 
   submissions
     .slice(
@@ -692,46 +465,36 @@ function drawFlags() {
       function(
         submission,
         index
-      ) {
+      ){
 
         const position =
           positions[index];
-
 
         const flag =
           document.createElement(
             "div"
           );
 
-
         flag.className =
           "flag";
-
 
         flag.style.left =
           position.x + "%";
 
-
         flag.style.top =
           position.y + "%";
-
 
         flag.style.width =
           position.w + "%";
 
-
         flag.style.height =
           position.h + "%";
 
-
         flag.innerHTML = `
 
-          <div
-            class="flag-pole">
-          </div>
+          <div class="flag-pole"></div>
 
-          <div
-            class="flag-art">
+          <div class="flag-art">
 
             <img
               src="${getImageURL(
@@ -744,20 +507,19 @@ function drawFlags() {
 
         `;
 
-
         flagsLayer.appendChild(
           flag
         );
 
-
-        if (revealed) {
+        if(revealed){
 
           requestAnimationFrame(
-            function() {
+            function(){
 
               flag.classList.add(
                 "revealed"
               );
+
             }
           );
         }
@@ -766,30 +528,27 @@ function drawFlags() {
 }
 
 
-/* =========================
+/* =====================================
    REVEAL
-========================= */
+===================================== */
 
-function revealFlags() {
+function revealFlags(){
 
-  revealed =
-    true;
-
+  revealed = true;
 
   const flags =
     document.querySelectorAll(
       ".flag"
     );
 
-
   flags.forEach(
     function(
       flag,
       index
-    ) {
+    ){
 
       setTimeout(
-        function() {
+        function(){
 
           flag.classList.add(
             "revealed"
@@ -797,11 +556,10 @@ function revealFlags() {
 
         },
 
-        index * 80
+        index * 55
       );
     }
   );
-
 
   document
     .getElementById(
@@ -812,29 +570,27 @@ function revealFlags() {
 }
 
 
-/* =========================
-   RESET DISPLAY
-========================= */
+/* =====================================
+   RESET
+===================================== */
 
-function resetDisplay() {
+function resetDisplay(){
 
-  revealed =
-    false;
-
+  revealed = false;
 
   document
     .querySelectorAll(
       ".flag"
     )
     .forEach(
-      function(flag) {
+      function(flag){
 
         flag.classList.remove(
           "revealed"
         );
+
       }
     );
-
 
   document
     .getElementById(
@@ -842,7 +598,6 @@ function resetDisplay() {
     )
     .textContent =
       "Reveal Flags";
-
 
   document
     .getElementById(
@@ -854,9 +609,9 @@ function resetDisplay() {
 }
 
 
-/* =========================
-   REALTIME
-========================= */
+/* =====================================
+   REALTIME NEW SUBMISSIONS
+===================================== */
 
 db
   .channel(
@@ -867,60 +622,45 @@ db
     "postgres_changes",
 
     {
-      event:
-        "INSERT",
-
-      schema:
-        "public",
-
-      table:
-        "submissions"
+      event:"INSERT",
+      schema:"public",
+      table:"submissions"
     },
 
-    function(
-      payload
-    ) {
+    function(payload){
 
       const exists =
         submissions.some(
-          function(
-            submission
-          ) {
+          function(submission){
 
             return (
               submission.id ===
               payload.new.id
             );
+
           }
         );
 
-
-      if (exists) {
-
+      if(exists){
         return;
       }
-
 
       submissions.push(
         payload.new
       );
 
-
       flagCount.textContent =
         submissions.length;
 
-
       drawFlags();
 
-
-      if (revealed) {
+      if(revealed){
 
         statusBox.textContent =
           "New flag added!";
 
-
         setTimeout(
-          function() {
+          function(){
 
             statusBox.textContent =
               "Connected";
@@ -936,9 +676,9 @@ db
   .subscribe();
 
 
-/* =========================
+/* =====================================
    BUTTONS
-========================= */
+===================================== */
 
 document
   .getElementById(
@@ -949,7 +689,6 @@ document
     revealFlags
   );
 
-
 document
   .getElementById(
     "refreshButton"
@@ -958,7 +697,6 @@ document
     "click",
     loadFlags
   );
-
 
 document
   .getElementById(
@@ -969,21 +707,19 @@ document
     resetDisplay
   );
 
-
 document
   .getElementById(
     "startButton"
   )
   .addEventListener(
     "click",
-    function() {
+    function(){
 
       resetDisplay();
-
       loadFlags();
+
     }
   );
-
 
 document
   .getElementById(
@@ -991,7 +727,7 @@ document
   )
   .addEventListener(
     "click",
-    function() {
+    function(){
 
       document
         .getElementById(
@@ -1001,14 +737,13 @@ document
         .display =
           "none";
 
-
       statusBox
         .style
         .display =
           "none";
+
     }
   );
-
 
 document
   .getElementById(
@@ -1016,12 +751,7 @@ document
   )
   .addEventListener(
     "click",
-    function() {
-
-      /*
-        Final wording has intentionally
-        NOT been chosen.
-      */
+    function(){
 
       document
         .getElementById(
@@ -1030,7 +760,6 @@ document
         .textContent =
           "";
 
-
       document
         .getElementById(
           "finalOverlay"
@@ -1038,9 +767,9 @@ document
         .style
         .display =
           "flex";
+
     }
   );
-
 
 document
   .getElementById(
@@ -1048,7 +777,7 @@ document
   )
   .addEventListener(
     "click",
-    function() {
+    function(){
 
       document
         .getElementById(
@@ -1057,13 +786,14 @@ document
         .style
         .display =
           "none";
+
     }
   );
 
 
-/* =========================
+/* =====================================
    START
-========================= */
+===================================== */
 
 loadFlags();
 
